@@ -1,0 +1,185 @@
+﻿@model IEnumerable<BioGamesTransport.Data.SQL.Orders>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                DataTables Advanced Tables
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <h2>Index</h2>
+
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderOutId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Deposit)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ExpensePrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShipPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderDatetime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Created)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Modified)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Comment)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastCheck)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderOutRef)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Payment)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Shipment)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShipUndertakenDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShipExpectedDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShipDeliveredDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Customer)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InvoiceAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShipAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShipMode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShipStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Shop)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.User)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="@Html.DisplayFor(modelItem => item.ShipStatus.Color)">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderOutId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Deposit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ExpensePrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShipPrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderDatetime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Created)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Modified)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Comment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastCheck)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderOutRef)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Payment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Shipment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShipUndertakenDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShipExpectedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShipDeliveredDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InvoiceAddress.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderStatus.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShipAddress.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShipMode.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShipStatus.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Shop.BaseUrl)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Id)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

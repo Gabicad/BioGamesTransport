@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BioGamesTransport</title>
+
+    <environment include="Development">
+        <!-- Bootstrap Core CSS -->
+        <link href="~/lib/sb-admin-2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="~/lib/sb-admin-2/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="~/lib/sb-admin-2/dist/css/sb-admin-2.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="~/lib/sb-admin-2/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+
+    </environment>
+    <environment exclude="Development">
+        <!-- Bootstrap Core CSS -->
+        <link href="~/lib/sb-admin-2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="~/lib/sb-admin-2/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="~/lib/sb-admin-2/dist/css/sb-admin-2.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="~/lib/sb-admin-2/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="~/css/site.css" />
+
+    </environment>
+</head>
+<body>
+    <div id="wrapper">
+        @await Html.PartialAsync("~/Views/Shared/Navigation.cshtml")
+
+        <partial name="_CookieConsentPartial" />
+
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <environment include="Development">
+        <script src="~/lib/sb-admin-2/vendor/jquery/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="~/lib/sb-admin-2/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="~/lib/sb-admin-2/vendor/metisMenu/metisMenu.min.js"></script>
+        <!-- Morris Charts JavaScript -->
+        <script src="~/lib/sb-admin-2/vendor/raphael/raphael.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="~/lib/sb-admin-2/dist/js/sb-admin-2.js"></script>
+        <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/sb-admin-2/vendor/jquery/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="~/lib/sb-admin-2/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="~/lib/sb-admin-2/vendor/metisMenu/metisMenu.min.js"></script>
+        <script src="~/lib/sb-admin-2/vendor/raphael/raphael.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="~/lib/sb-admin-2/dist/js/sb-admin-2.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

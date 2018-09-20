@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioGamesTransport", "BioGamesTransport\BioGamesTransport.csproj", "{2A3C119D-54C0-423E-A3BD-312828DECC96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rest", "..\rest\rest\rest.csproj", "{03AD90D8-9C5C-49DC-8EBA-87E6339A79C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A3C119D-54C0-423E-A3BD-312828DECC96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A3C119D-54C0-423E-A3BD-312828DECC96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A3C119D-54C0-423E-A3BD-312828DECC96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A3C119D-54C0-423E-A3BD-312828DECC96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03AD90D8-9C5C-49DC-8EBA-87E6339A79C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03AD90D8-9C5C-49DC-8EBA-87E6339A79C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03AD90D8-9C5C-49DC-8EBA-87E6339A79C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03AD90D8-9C5C-49DC-8EBA-87E6339A79C8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F32EE6B-4744-4E26-801E-351D4503D69F}
+	EndGlobalSection
+EndGlobal
