@@ -4,16 +4,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OrderOutId)
+                @Html.DisplayNameFor(model => model.OrderOutRef)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDatetime)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ShipUndertakenDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipExpectedDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TotalPrice)
@@ -22,67 +30,35 @@
                 @Html.DisplayNameFor(model => model.Deposit)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderDatetime)
+                @Html.DisplayNameFor(model => model.DepositDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Modified)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Comment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastCheck)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderOutRef)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Payment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shipment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShipUndertakenDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShipExpectedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShipDeliveredDate)
+                @Html.DisplayNameFor(model => model.Residual)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Customer)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InvoiceAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShipAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShipStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shop)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
+            <th>Műveletek</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.OrderOutId)
+                @Html.DisplayFor(modelItem => item.OrderOutRef)
+            </td>
+            <td>
+                <button type="button" class="btn btn-@Html.DisplayFor(modelItem => item.OrderStatus.Color) btn-sm"> @Html.DisplayFor(modelItem => item.OrderStatus.Name) </button>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDatetime)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipUndertakenDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipExpectedDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TotalPrice)
@@ -91,63 +67,21 @@
                 @Html.DisplayFor(modelItem => item.Deposit)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OrderDatetime)
+                @Html.DisplayFor(modelItem => item.DepositDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Created)
+                @Html.DisplayFor(modelItem => item.Residual)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Modified)
+                @Html.DisplayFor(modelItem => item.Customer.FullName)
             </td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastCheck)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderOutRef)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Payment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Shipment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipUndertakenDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipExpectedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipDeliveredDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceAddress.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderStatus.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipAddress.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipStatus.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Shop.BaseUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-outline btn-success btn-xs" asp-action="Edit" asp-route-id="@item.Id">Pénzügy</a> |
+                <a class="btn btn-outline btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">Szállítás</a> |
+                <a class="btn btn-outline btn-primary btn-xs" asp-action="Details" asp-route-id="@item.Id">Részletek</a> |
+                <a class="btn btn-outline btn-default btn-xs" asp-action="Edit" asp-route-id="@item.Id">Szerkesztés</a> |
+                <a class="btn btn-outline btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
             </td>
         </tr>
 }

@@ -486,6 +486,10 @@ namespace BioGamesTransport.Data.SQL
                     .HasColumnName("ship_delivered_date")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.DepositDate)
+                 .HasColumnName("deposit_date")
+                 .HasColumnType("datetime");
+
                 entity.Property(e => e.ShipExpectedDate)
                     .HasColumnName("ship_expected_date")
                     .HasColumnType("datetime");
