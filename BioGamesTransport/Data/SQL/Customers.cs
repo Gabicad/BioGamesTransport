@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BioGamesTransport.Data.SQL
 {
@@ -11,6 +13,9 @@ namespace BioGamesTransport.Data.SQL
             Orders = new HashSet<Orders>();
             ShipAddresses = new HashSet<ShipAddresses>();
         }
+
+        public InvoiceAddresses helperInvoiceAddresses = new InvoiceAddresses();
+        public ShipAddresses helperShipAddresses = new ShipAddresses();
 
         public int Id { get; set; }
         public int? ShopId { get; set; }
@@ -27,6 +32,11 @@ namespace BioGamesTransport.Data.SQL
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
         public bool Deleted { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Név")]
+        public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
+
 
         public virtual Shops Shop { get; set; }
         public virtual ICollection<InvoiceAddresses> InvoiceAddresses { get; set; }

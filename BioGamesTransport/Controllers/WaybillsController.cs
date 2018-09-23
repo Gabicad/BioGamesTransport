@@ -9,23 +9,23 @@ using BioGamesTransport.Data.SQL;
 
 namespace BioGamesTransport.Controllers
 {
-    public class ExpendituresController : Controller
+    public class WaybillsController : Controller
     {
         private readonly BiogamesTransContext _context;
 
-        public ExpendituresController(BiogamesTransContext context)
+        public WaybillsController(BiogamesTransContext context)
         {
             _context = context;
         }
 
-        // GET: Expenditures
+        // GET: Waybills
         public async Task<IActionResult> Index()
         {
-            var biogamesTransContext = _context.Expenditures.Include(e => e.Order);
+            var biogamesTransContext = _context.Waybill.Include(w => w.ShipMode).Include(w => w.WaybillStatus);
             return View(await biogamesTransContext.ToListAsync());
         }
 
-        // GET: Expenditures/Details/5
+        // GET: Waybills/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +33,45 @@ namespace BioGamesTransport.Controllers
                 return NotFound();
             }
 
-            var expenditures = await _context.Expenditures
-                .Include(e => e.Order)
+            var waybill = await _context.Waybill
+                .Include(w => w.ShipMode)
+                .Include(w => w.WaybillStatus)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (expenditures == null)
+            if (waybill == null)
             {
                 return NotFound();
             }
 
-            return View(expenditures);
+            return View(waybill);
         }
 
-        // GET: Expenditures/Create
+        // GET: Waybills/Create
         public IActionResult Create()
         {
-            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id");
+            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id");
+            ViewData["WaybillStatusId"] = new SelectList(_context.WaybillStatuses, "Id", "Id");
             return View();
         }
 
-        // POST: Expenditures/Create
+        // POST: Waybills/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderId,Name,Price,Comment")] Expenditures expenditures)
+        public async Task<IActionResult> Create([Bind("Id,ShipModeId,WaybillStatusId,From,To,Cost,DepartureTime,ArrivalTime,Comment,Created,Modified")] Waybill waybill)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(expenditures);
+                _context.Add(waybill);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id", expenditures.OrderId);
-            return View(expenditures);
+            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", waybill.ShipModeId);
+            ViewData["WaybillStatusId"] = new SelectList(_context.WaybillStatuses, "Id", "Id", waybill.WaybillStatusId);
+            return View(waybill);
         }
 
-        // GET: Expenditures/Edit/5
+        // GET: Waybills/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +79,24 @@ namespace BioGamesTransport.Controllers
                 return NotFound();
             }
 
-            var expenditures = await _context.Expenditures.FindAsync(id);
-            if (expenditures == null)
+            var waybill = await _context.Waybill.FindAsync(id);
+            if (waybill == null)
             {
                 return NotFound();
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id", expenditures.OrderId);
-            return View(expenditures);
+            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", waybill.ShipModeId);
+            ViewData["WaybillStatusId"] = new SelectList(_context.WaybillStatuses, "Id", "Id", waybill.WaybillStatusId);
+            return View(waybill);
         }
 
-        // POST: Expenditures/Edit/5
+        // POST: Waybills/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderId,Name,Price,Comment")] Expenditures expenditures)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ShipModeId,WaybillStatusId,From,To,Cost,DepartureTime,ArrivalTime,Comment,Created,Modified")] Waybill waybill)
         {
-            if (id != expenditures.Id)
+            if (id != waybill.Id)
             {
                 return NotFound();
             }
@@ -101,12 +105,12 @@ namespace BioGamesTransport.Controllers
             {
                 try
                 {
-                    _context.Update(expenditures);
+                    _context.Update(waybill);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExpendituresExists(expenditures.Id))
+                    if (!WaybillExists(waybill.Id))
                     {
                         return NotFound();
                     }
@@ -117,11 +121,12 @@ namespace BioGamesTransport.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id", expenditures.OrderId);
-            return View(expenditures);
+            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", waybill.ShipModeId);
+            ViewData["WaybillStatusId"] = new SelectList(_context.WaybillStatuses, "Id", "Id", waybill.WaybillStatusId);
+            return View(waybill);
         }
 
-        // GET: Expenditures/Delete/5
+        // GET: Waybills/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +134,32 @@ namespace BioGamesTransport.Controllers
                 return NotFound();
             }
 
-            var expenditures = await _context.Expenditures
-                .Include(e => e.Order)
+            var waybill = await _context.Waybill
+                .Include(w => w.ShipMode)
+                .Include(w => w.WaybillStatus)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (expenditures == null)
+            if (waybill == null)
             {
                 return NotFound();
             }
 
-            return View(expenditures);
+            return View(waybill);
         }
 
-        // POST: Expenditures/Delete/5
+        // POST: Waybills/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var expenditures = await _context.Expenditures.FindAsync(id);
-            _context.Expenditures.Remove(expenditures);
+            var waybill = await _context.Waybill.FindAsync(id);
+            _context.Waybill.Remove(waybill);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExpendituresExists(int id)
+        private bool WaybillExists(int id)
         {
-            return _context.Expenditures.Any(e => e.Id == id);
+            return _context.Waybill.Any(e => e.Id == id);
         }
     }
 }

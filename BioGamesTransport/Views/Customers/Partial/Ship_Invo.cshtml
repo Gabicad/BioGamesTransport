@@ -1,0 +1,150 @@
+﻿@model BioGamesTransport.Data.SQL.Customers
+
+
+<div class="clearfix"></div>
+<br />
+<button class="btn btn-info" data-toggle="collapse" data-target="#ShipInvoCollaspse">Szállítási és számlázási adatok megjelenítése</button>
+<br />
+<div class="clearfix"></div>
+<div id="ShipInvoCollaspse" class="collapse">
+    <div class="table-responsive-xl">
+        <hr />
+        <h4>Számlázási adatok</h4>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.FirstName)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.LastName)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.Country)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.City)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.Zipcode)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.Address)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.Company)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.TaxNumber)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.Phone)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperInvoiceAddresses.Comment)
+                    </th>
+                    <th scope="col">
+                        Műveletek
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.InvoiceAddresses)
+                {
+                    if (!(bool)item.Deleted)
+                    {
+                        <tr>
+
+                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                            <td>@Html.DisplayFor(modelItem => item.City)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Company)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TaxNumber)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+                            <td>
+
+                                <a class="btn btn-warning btn-xs" asp-controller="InvoiceAddresses" asp-action="Edit" asp-route-id="@item.Id">Módosítás</a> |
+                                <a class="btn btn-primary btn-xs" asp-controller="InvoiceAddresses" asp-action="Details" asp-route-id="@item.Id">Részletek</a> |
+                                <a class="btn btn-danger btn-xs" asp-controller="InvoiceAddresses" asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <a asp-controller="InvoiceAddresses" asp-action="Create" asp-route-customer_id="@Model.Id">Új számlázási cím hozzáadása</a>
+        <hr />
+        <h4>Szállítási adatok</h4>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.FirstName)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.LastName)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.Country)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.City)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.Zipcode)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.Address)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.Company)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.Phone)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.helperShipAddresses.Comment)
+                    </th>
+                    <th scope="col">
+                        Műveletek
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ShipAddresses)
+                {
+                    @if (!item.Deleted)
+                    {
+                        <tr>
+
+                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                            <td>@Html.DisplayFor(modelItem => item.City)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Zipcode)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Company)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+                            <td>
+
+                                <a class="btn btn-warning btn-xs" asp-controller="ShipAddresses" asp-action="Edit" asp-route-id="@item.Id">Módosítás</a> |
+                                <a class="btn btn-primary btn-xs" asp-controller="ShipAddresses" asp-action="Details" asp-route-id="@item.Id">Részletek</a> |
+                                <a class="btn btn-danger btn-xs" asp-controller="ShipAddresses" asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <a asp-controller="ShipAddresses" asp-action="Create" asp-route-customer_id="@Model.Id">Új szállítási cím hozzáadása</a>
+    </div>
+</div>

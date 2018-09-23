@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+
 using BioGamesTransport.Data.SQL;
 
 namespace BioGamesTransport.Controllers
@@ -13,16 +14,44 @@ namespace BioGamesTransport.Controllers
     {
         private readonly BiogamesTransContext _context;
 
-        public CustomersController(BiogamesTransContext context) 
+        public CustomersController(BiogamesTransContext context)
         {
             _context = context;
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string q, string q1)
         {
-            var biogamesTransContext = _context.Customers.Include(c => c.Shop);
-            return View(await biogamesTransContext.ToListAsync());
+            var biogamesMgrContext = _context.Customers.Include(c => c.Shop).Where(c => c.Deleted == false);
+            if (!String.IsNullOrEmpty(q))
+            {
+                switch (q1)
+            {
+                case "fullName":
+                        biogamesMgrContext = biogamesMgrContext.Where(s => s.FullName.Contains(q));
+                        break;
+                case "type":
+                        biogamesMgrContext = biogamesMgrContext.Where(s => s.Type.Contains(q));
+                        break;
+                case "email":
+                        biogamesMgrContext = biogamesMgrContext.Where(s => s.Email.Contains(q));
+                        break;
+                case "company":
+                        biogamesMgrContext = biogamesMgrContext.Where(s => s.Company.Contains(q));
+                        break;
+                case "phone":
+                        biogamesMgrContext = biogamesMgrContext.Where(s => s.Phone.Contains(q));
+                        break;
+                    default:
+                        
+                        break;
+            }
+                ViewData["q"] = q;
+                ViewData["q1"] = q1;
+            }
+
+            dynamic tmp = await biogamesMgrContext.ToListAsync();
+            return View(tmp);
         }
 
         // GET: Customers/Details/5
@@ -33,9 +62,15 @@ namespace BioGamesTransport.Controllers
                 return NotFound();
             }
 
+
             var customers = await _context.Customers
                 .Include(c => c.Shop)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            _context.Entry(customers).Collection("InvoiceAddresses").Load();
+            _context.Entry(customers).Collection("ShipAddresses").Load();
+            
+
             if (customers == null)
             {
                 return NotFound();
@@ -47,7 +82,7 @@ namespace BioGamesTransport.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl");
+            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "Name");
             return View();
         }
 
@@ -56,16 +91,27 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ShopId,OutCustomerId,FirstName,LastName,Newsletter,Type,Phone,Email,BankAccount,Company,Comment,Created,Modified,Deleted")] Customers customers)
+        public async Task<IActionResult> Create(Customers Customers, InvoiceAddresses InvoiceAddresses, ShipAddresses ShipAddresses)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customers);
+                DateTime cretaed_time = DateTime.Now;
+                InvoiceAddresses.Created = cretaed_time;
+                ShipAddresses.Created = cretaed_time;
+                Customers.Created = cretaed_time;
+                Customers.Deleted = false;
+
+                Customers.InvoiceAddresses.Add(InvoiceAddresses);
+                Customers.ShipAddresses.Add(ShipAddresses);
+                _context.Add(Customers);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl", customers.ShopId);
-            return View(customers);
+            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "Name", Customers.ShopId);
+            
+
+            return View(Customers);
         }
 
         // GET: Customers/Edit/5
@@ -81,7 +127,8 @@ namespace BioGamesTransport.Controllers
             {
                 return NotFound();
             }
-            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl", customers.ShopId);
+            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "Name", customers.ShopId);
+
             return View(customers);
         }
 
@@ -90,17 +137,22 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ShopId,OutCustomerId,FirstName,LastName,Newsletter,Type,Phone,Email,BankAccount,Company,Comment,Created,Modified,Deleted")] Customers customers)
+        public async Task<IActionResult> Edit(int id, Customers customers)
         {
             if (id != customers.Id)
             {
                 return NotFound();
             }
 
+            
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    DateTime cretaed_time = DateTime.Now;
+                   
+                    customers.Modified = cretaed_time;
                     _context.Update(customers);
                     await _context.SaveChangesAsync();
                 }
@@ -117,7 +169,7 @@ namespace BioGamesTransport.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl", customers.ShopId);
+            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "Name", customers.ShopId);
             return View(customers);
         }
 

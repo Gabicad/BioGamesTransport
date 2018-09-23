@@ -57,16 +57,22 @@
                     <a href="#"><i class="fa fa-shopping-cart fw"></i> Megrendelés kezelés<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a asp-area="" class="nav-link" asp-controller="offers" asp-action="Index">Árajánlatok kezelése</a>
-                        </li>
-                        <li>
                             <a asp-area="" class="nav-link" asp-controller="orders" asp-action="Index">Megrendelések kezelése</a>
                         </li>
                         <li>
-                            <a asp-area="" class="nav-link" asp-controller="offers" asp-action="Create">Új árajánlat</a>
+                            <a asp-area="" class="nav-link" asp-controller="Orders" asp-action="Create">Új Megrendelés</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-truck   fw"></i> Szállítás kezelés<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a asp-area="" class="nav-link" asp-controller="waybills" asp-action="Index">Folyamatban lévő szállítások</a>
                         </li>
                         <li>
-                            <a asp-area="" class="nav-link" asp-controller="Orders" asp-action="Create">Új Megrendelés</a>
+                            <a asp-area="" class="nav-link" asp-controller="waybills" asp-action="Create">Új szállítás indítása</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -83,24 +89,25 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
-                <li>
-                    <a href="#"><i class="fa fa-signal fw"></i> Riportok<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a asp-area="" class="nav-link" asp-controller="workers" asp-action="Index">Alkalmazottak</a></li>
-                        <li><a asp-area="" class="nav-link" asp-controller="ShipStatuses" asp-action="Index">Árajánlatok</a></li>
-                        <li><a asp-area="" class="nav-link" asp-controller="offerStatuses" asp-action="Index">Megrendelések</a></li>
-                        <li><a asp-area="" class="nav-link" asp-controller="orderStatuses" asp-action="Index">Gyártók</a></li>
-                        <li><a asp-area="" class="nav-link" asp-controller="ShipModes" asp-action="Index">Szállítási státuszok</a></li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                <!--  <li>
+    <a href="#"><i class="fa fa-signal fw"></i> Riportok<span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level">
+        <li><a asp-area="" class="nav-link" asp-controller="workers" asp-action="Index">Alkalmazottak</a></li>
+        <li><a asp-area="" class="nav-link" asp-controller="ShipStatuses" asp-action="Index">Árajánlatok</a></li>
+        <li><a asp-area="" class="nav-link" asp-controller="offerStatuses" asp-action="Index">Megrendelések</a></li>
+        <li><a asp-area="" class="nav-link" asp-controller="orderStatuses" asp-action="Index">Gyártók</a></li>
+        <li><a asp-area="" class="nav-link" asp-controller="ShipModes" asp-action="Index">Szállítási státuszok</a></li>
+    </ul>
+              
+                </li>-->
                 <li>
                     <a href="#"><i class="fa fa-gear fw"></i> Beállítások<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a asp-area="" class="nav-link" asp-controller="workers" asp-action="Index">Alkalmazottak</a></li>
+                        <!--   <li><a asp-area="" class="nav-link" asp-controller="workers" asp-action="Index">Alkalmazottak</a></li> -->
                         <li><a asp-area="" class="nav-link" asp-controller="ShipStatuses" asp-action="Index">Szállítási állapotok</a></li>
-                        <li><a asp-area="" class="nav-link" asp-controller="offerStatuses" asp-action="Index">Ajánlat státuszok</a></li>
                         <li><a asp-area="" class="nav-link" asp-controller="orderStatuses" asp-action="Index">Megrendelés állapotok</a></li>
+                        <li><a asp-area="" class="nav-link" asp-controller="waybillStatuses" asp-action="Index">Fuvarlevél státuszok</a></li>
+
                         <li><a asp-area="" class="nav-link" asp-controller="ShipModes" asp-action="Index">Szállítási módok</a></li>
                         <li><a asp-area="" class="nav-link" asp-controller="Shops" asp-action="Index">Boltok</a></li>
                         <li><a asp-area="" class="nav-link" asp-controller="Manufacturers" asp-action="Index">Gyártók</a></li>

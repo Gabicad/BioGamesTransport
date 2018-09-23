@@ -9,22 +9,22 @@ using BioGamesTransport.Data.SQL;
 
 namespace BioGamesTransport.Controllers
 {
-    public class ShipModesController : Controller
+    public class WaybillStatusesController : Controller
     {
         private readonly BiogamesTransContext _context;
 
-        public ShipModesController(BiogamesTransContext context)
+        public WaybillStatusesController(BiogamesTransContext context)
         {
             _context = context;
         }
 
-        // GET: ShipModes
+        // GET: WaybillStatuses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ShipModes.ToListAsync());
+            return View(await _context.WaybillStatuses.ToListAsync());
         }
 
-        // GET: ShipModes/Details/5
+        // GET: WaybillStatuses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace BioGamesTransport.Controllers
                 return NotFound();
             }
 
-            var shipModes = await _context.ShipModes
+            var waybillStatuses = await _context.WaybillStatuses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (shipModes == null)
+            if (waybillStatuses == null)
             {
                 return NotFound();
             }
 
-            return View(shipModes);
+            return View(waybillStatuses);
         }
 
-        // GET: ShipModes/Create
+        // GET: WaybillStatuses/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ShipModes/Create
+        // POST: WaybillStatuses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Phone,Mail,Comment")] ShipModes shipModes)
+        public async Task<IActionResult> Create([Bind("Id,Name,Color")] WaybillStatuses waybillStatuses)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(shipModes);
+                _context.Add(waybillStatuses);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(shipModes);
+            return View(waybillStatuses);
         }
 
-        // GET: ShipModes/Edit/5
+        // GET: WaybillStatuses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace BioGamesTransport.Controllers
                 return NotFound();
             }
 
-            var shipModes = await _context.ShipModes.FindAsync(id);
-            if (shipModes == null)
+            var waybillStatuses = await _context.WaybillStatuses.FindAsync(id);
+            if (waybillStatuses == null)
             {
                 return NotFound();
             }
-            return View(shipModes);
+            return View(waybillStatuses);
         }
 
-        // POST: ShipModes/Edit/5
+        // POST: WaybillStatuses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Phone,Mail,Comment")] ShipModes shipModes)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Color")] WaybillStatuses waybillStatuses)
         {
-            if (id != shipModes.Id)
+            if (id != waybillStatuses.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace BioGamesTransport.Controllers
             {
                 try
                 {
-                    _context.Update(shipModes);
+                    _context.Update(waybillStatuses);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ShipModesExists(shipModes.Id))
+                    if (!WaybillStatusesExists(waybillStatuses.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace BioGamesTransport.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(shipModes);
+            return View(waybillStatuses);
         }
 
-        // GET: ShipModes/Delete/5
+        // GET: WaybillStatuses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace BioGamesTransport.Controllers
                 return NotFound();
             }
 
-            var shipModes = await _context.ShipModes
+            var waybillStatuses = await _context.WaybillStatuses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (shipModes == null)
+            if (waybillStatuses == null)
             {
                 return NotFound();
             }
 
-            return View(shipModes);
+            return View(waybillStatuses);
         }
 
-        // POST: ShipModes/Delete/5
+        // POST: WaybillStatuses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var shipModes = await _context.ShipModes.FindAsync(id);
-            _context.ShipModes.Remove(shipModes);
+            var waybillStatuses = await _context.WaybillStatuses.FindAsync(id);
+            _context.WaybillStatuses.Remove(waybillStatuses);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ShipModesExists(int id)
+        private bool WaybillStatusesExists(int id)
         {
-            return _context.ShipModes.Any(e => e.Id == id);
+            return _context.WaybillStatuses.Any(e => e.Id == id);
         }
     }
 }

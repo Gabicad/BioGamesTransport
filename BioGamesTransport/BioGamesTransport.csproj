@@ -16,4 +16,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0-preview2-35157" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Customers\Partial\" />
+  </ItemGroup>
+
 </Project>

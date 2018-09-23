@@ -23,7 +23,6 @@ namespace BioGamesTransport.Data.SQL
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
-        public virtual DbSet<Expenditures> Expenditures { get; set; }
         public virtual DbSet<Images> Images { get; set; }
         public virtual DbSet<InvoiceAddresses> InvoiceAddresses { get; set; }
         public virtual DbSet<Manufacturers> Manufacturers { get; set; }
@@ -36,6 +35,9 @@ namespace BioGamesTransport.Data.SQL
         public virtual DbSet<ShipStatuses> ShipStatuses { get; set; }
         public virtual DbSet<Shops> Shops { get; set; }
         public virtual DbSet<SystemLog> SystemLog { get; set; }
+        public virtual DbSet<Waybill> Waybill { get; set; }
+        public virtual DbSet<WaybillDetails> WaybillDetails { get; set; }
+        public virtual DbSet<WaybillStatuses> WaybillStatuses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -219,32 +221,6 @@ namespace BioGamesTransport.Data.SQL
                     .HasConstraintName("FK_customers_customers_Shop");
             });
 
-            modelBuilder.Entity<Expenditures>(entity =>
-            {
-                entity.ToTable("expenditures");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Comment)
-                    .HasColumnName("comment")
-                    .HasColumnType("text");
-
-                entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.OrderId).HasColumnName("order_id");
-
-                entity.Property(e => e.Price).HasColumnName("price");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Expenditures)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_expenditures_expenditures_orders");
-            });
-
             modelBuilder.Entity<Images>(entity =>
             {
                 entity.ToTable("images");
@@ -392,8 +368,6 @@ namespace BioGamesTransport.Data.SQL
 
                 entity.Property(e => e.Deposit).HasColumnName("deposit");
 
-                entity.Property(e => e.ExpensePrice).HasColumnName("expense_price");
-
                 entity.Property(e => e.ImagesId).HasColumnName("images_id");
 
                 entity.Property(e => e.ManufacturerId).HasColumnName("manufacturer_id");
@@ -432,10 +406,6 @@ namespace BioGamesTransport.Data.SQL
                     .HasColumnName("ship_expected_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.ShipModeId).HasColumnName("ship_mode_id");
-
-                entity.Property(e => e.ShipPrice).HasColumnName("ship_price");
-
                 entity.Property(e => e.ShipStatusId).HasColumnName("ship_status_id");
 
                 entity.Property(e => e.ShipUndertakenDate)
@@ -457,11 +427,6 @@ namespace BioGamesTransport.Data.SQL
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_order_details_order_details_order");
-
-                entity.HasOne(d => d.ShipMode)
-                    .WithMany(p => p.OrderDetails)
-                    .HasForeignKey(d => d.ShipModeId)
-                    .HasConstraintName("FK_order_details_order_details_ShipMode");
 
                 entity.HasOne(d => d.ShipStatus)
                     .WithMany(p => p.OrderDetails)
@@ -486,8 +451,6 @@ namespace BioGamesTransport.Data.SQL
                 entity.Property(e => e.CustomerId).HasColumnName("customer_id");
 
                 entity.Property(e => e.Deposit).HasColumnName("deposit");
-
-                entity.Property(e => e.ExpensePrice).HasColumnName("expense_price");
 
                 entity.Property(e => e.InvoiceAddressId).HasColumnName("invoice_address_id");
 
@@ -526,10 +489,6 @@ namespace BioGamesTransport.Data.SQL
                 entity.Property(e => e.ShipExpectedDate)
                     .HasColumnName("ship_expected_date")
                     .HasColumnType("datetime");
-
-                entity.Property(e => e.ShipModeId).HasColumnName("ship_mode_id");
-
-                entity.Property(e => e.ShipPrice).HasColumnName("ship_price");
 
                 entity.Property(e => e.ShipStatusId).HasColumnName("ship_status_id");
 
@@ -573,11 +532,6 @@ namespace BioGamesTransport.Data.SQL
                     .HasForeignKey(d => d.ShipAddressId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_orders_orders_ShipAddresses");
-
-                entity.HasOne(d => d.ShipMode)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.ShipModeId)
-                    .HasConstraintName("FK_orders_orders_ShipModes");
 
                 entity.HasOne(d => d.ShipStatus)
                     .WithMany(p => p.Orders)
@@ -795,8 +749,22 @@ namespace BioGamesTransport.Data.SQL
             {
                 entity.ToTable("ship_modes");
 
+                entity.Property(e => e.Comment)
+                    .HasColumnName("comment")
+                    .HasColumnType("text");
+
+                entity.Property(e => e.Mail)
+                    .HasColumnName("mail")
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Phone)
+                    .HasColumnName("phone")
                     .HasMaxLength(150)
                     .IsUnicode(false);
             });
@@ -863,6 +831,99 @@ namespace BioGamesTransport.Data.SQL
                     .IsRequired()
                     .HasColumnName("type")
                     .HasMaxLength(150)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Waybill>(entity =>
+            {
+                entity.ToTable("waybill");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.ArrivalTime)
+                    .HasColumnName("arrival_time")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Comment)
+                    .HasColumnName("comment")
+                    .HasColumnType("text");
+
+                entity.Property(e => e.Cost).HasColumnName("cost");
+
+                entity.Property(e => e.Created)
+                    .HasColumnName("created")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DepartureTime)
+                    .HasColumnName("departure_time")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.From)
+                    .HasColumnName("from")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Modified)
+                    .HasColumnName("modified")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ShipModeId).HasColumnName("ship_mode_id");
+
+                entity.Property(e => e.To)
+                    .HasColumnName("to")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.WaybillStatusId).HasColumnName("waybill_status_id");
+
+                entity.HasOne(d => d.ShipMode)
+                    .WithMany(p => p.Waybill)
+                    .HasForeignKey(d => d.ShipModeId)
+                    .HasConstraintName("FK_waybill_waybill_ship_mode");
+
+                entity.HasOne(d => d.WaybillStatus)
+                    .WithMany(p => p.Waybill)
+                    .HasForeignKey(d => d.WaybillStatusId)
+                    .HasConstraintName("FK_waybill_waybill_waybill_statuses");
+            });
+
+            modelBuilder.Entity<WaybillDetails>(entity =>
+            {
+                entity.ToTable("waybill_details");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.OrderDetailsId).HasColumnName("order_details_id");
+
+                entity.Property(e => e.WaybillId).HasColumnName("waybill_id");
+
+                entity.Property(e => e.Weighting).HasColumnName("weighting");
+
+                entity.HasOne(d => d.OrderDetails)
+                    .WithMany(p => p.WaybillDetails)
+                    .HasForeignKey(d => d.OrderDetailsId)
+                    .HasConstraintName("FK_waybill_details_waybill_details_oreder_details");
+
+                entity.HasOne(d => d.Waybill)
+                    .WithMany(p => p.WaybillDetails)
+                    .HasForeignKey(d => d.WaybillId)
+                    .HasConstraintName("FK_waybill_details_waybill_details_waybill");
+            });
+
+            modelBuilder.Entity<WaybillStatuses>(entity =>
+            {
+                entity.ToTable("waybill_statuses");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Color)
+                    .HasColumnName("color")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(255)
                     .IsUnicode(false);
             });
         }

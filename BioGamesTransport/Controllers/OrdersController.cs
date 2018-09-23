@@ -21,7 +21,7 @@ namespace BioGamesTransport.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var biogamesTransContext = _context.Orders.Include(o => o.Customer).Include(o => o.InvoiceAddress).Include(o => o.OrderStatus).Include(o => o.ShipAddress).Include(o => o.ShipMode).Include(o => o.ShipStatus).Include(o => o.Shop).Include(o => o.User);
+            var biogamesTransContext = _context.Orders.Include(o => o.Customer).Include(o => o.InvoiceAddress).Include(o => o.OrderStatus).Include(o => o.ShipAddress).Include(o => o.ShipStatus).Include(o => o.Shop).Include(o => o.User);
             return View(await biogamesTransContext.ToListAsync());
         }
 
@@ -38,7 +38,6 @@ namespace BioGamesTransport.Controllers
                 .Include(o => o.InvoiceAddress)
                 .Include(o => o.OrderStatus)
                 .Include(o => o.ShipAddress)
-                .Include(o => o.ShipMode)
                 .Include(o => o.ShipStatus)
                 .Include(o => o.Shop)
                 .Include(o => o.User)
@@ -58,7 +57,6 @@ namespace BioGamesTransport.Controllers
             ViewData["InvoiceAddressId"] = new SelectList(_context.InvoiceAddresses, "Id", "Address");
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "Id", "Name");
             ViewData["ShipAddressId"] = new SelectList(_context.ShipAddresses, "Id", "Address");
-            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id");
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name");
             ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl");
             ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
@@ -70,7 +68,7 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ShopId,OrderStatusId,CustomerId,UserId,OrderOutId,ShipModeId,ShipAddressId,InvoiceAddressId,ShipStatusId,TotalPrice,Deposit,ExpensePrice,ShipPrice,OrderDatetime,Created,Modified,Comment,LastCheck,OrderOutRef,Payment,Shipment,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate")] Orders orders)
+        public async Task<IActionResult> Create([Bind("Id,ShopId,OrderStatusId,CustomerId,UserId,OrderOutId,ShipAddressId,InvoiceAddressId,ShipStatusId,TotalPrice,Deposit,OrderDatetime,Created,Modified,Comment,LastCheck,OrderOutRef,Payment,Shipment,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate")] Orders orders)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +80,6 @@ namespace BioGamesTransport.Controllers
             ViewData["InvoiceAddressId"] = new SelectList(_context.InvoiceAddresses, "Id", "Address", orders.InvoiceAddressId);
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "Id", "Name", orders.OrderStatusId);
             ViewData["ShipAddressId"] = new SelectList(_context.ShipAddresses, "Id", "Address", orders.ShipAddressId);
-            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", orders.ShipModeId);
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name", orders.ShipStatusId);
             ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl", orders.ShopId);
             ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", orders.UserId);
@@ -106,7 +103,6 @@ namespace BioGamesTransport.Controllers
             ViewData["InvoiceAddressId"] = new SelectList(_context.InvoiceAddresses, "Id", "Address", orders.InvoiceAddressId);
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "Id", "Name", orders.OrderStatusId);
             ViewData["ShipAddressId"] = new SelectList(_context.ShipAddresses, "Id", "Address", orders.ShipAddressId);
-            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", orders.ShipModeId);
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name", orders.ShipStatusId);
             ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl", orders.ShopId);
             ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", orders.UserId);
@@ -118,7 +114,7 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ShopId,OrderStatusId,CustomerId,UserId,OrderOutId,ShipModeId,ShipAddressId,InvoiceAddressId,ShipStatusId,TotalPrice,Deposit,ExpensePrice,ShipPrice,OrderDatetime,Created,Modified,Comment,LastCheck,OrderOutRef,Payment,Shipment,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate")] Orders orders)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ShopId,OrderStatusId,CustomerId,UserId,OrderOutId,ShipAddressId,InvoiceAddressId,ShipStatusId,TotalPrice,Deposit,OrderDatetime,Created,Modified,Comment,LastCheck,OrderOutRef,Payment,Shipment,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate")] Orders orders)
         {
             if (id != orders.Id)
             {
@@ -149,7 +145,6 @@ namespace BioGamesTransport.Controllers
             ViewData["InvoiceAddressId"] = new SelectList(_context.InvoiceAddresses, "Id", "Address", orders.InvoiceAddressId);
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "Id", "Name", orders.OrderStatusId);
             ViewData["ShipAddressId"] = new SelectList(_context.ShipAddresses, "Id", "Address", orders.ShipAddressId);
-            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", orders.ShipModeId);
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name", orders.ShipStatusId);
             ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl", orders.ShopId);
             ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", orders.UserId);
@@ -169,7 +164,6 @@ namespace BioGamesTransport.Controllers
                 .Include(o => o.InvoiceAddress)
                 .Include(o => o.OrderStatus)
                 .Include(o => o.ShipAddress)
-                .Include(o => o.ShipMode)
                 .Include(o => o.ShipStatus)
                 .Include(o => o.Shop)
                 .Include(o => o.User)

@@ -33,18 +33,6 @@
         <link rel="stylesheet" href="~/css/site.css" />
 
     </environment>
-</head>
-<body>
-    <div id="wrapper">
-        @await Html.PartialAsync("~/Views/Shared/Navigation.cshtml")
-
-        <partial name="_CookieConsentPartial" />
-
-        <div id="page-wrapper">
-            @RenderBody()
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
     <environment include="Development">
         <script src="~/lib/sb-admin-2/vendor/jquery/jquery.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
@@ -72,6 +60,19 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
 
     </environment>
+</head>
+<body>
+    <div id="wrapper">
+        @await Html.PartialAsync("~/Views/Shared/Navigation.cshtml")
+
+        <partial name="_CookieConsentPartial" />
+
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+  
 
     @RenderSection("Scripts", required: false)
 </body>

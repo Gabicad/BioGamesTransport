@@ -7,7 +7,6 @@ namespace BioGamesTransport.Data.SQL
     {
         public Orders()
         {
-            Expenditures = new HashSet<Expenditures>();
             OrderDetails = new HashSet<OrderDetails>();
         }
 
@@ -17,14 +16,11 @@ namespace BioGamesTransport.Data.SQL
         public int CustomerId { get; set; }
         public string UserId { get; set; }
         public int OrderOutId { get; set; }
-        public int? ShipModeId { get; set; }
         public int ShipAddressId { get; set; }
         public int InvoiceAddressId { get; set; }
         public int? ShipStatusId { get; set; }
         public double TotalPrice { get; set; }
         public double? Deposit { get; set; }
-        public double? ExpensePrice { get; set; }
-        public double? ShipPrice { get; set; }
         public DateTime OrderDatetime { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
@@ -41,11 +37,9 @@ namespace BioGamesTransport.Data.SQL
         public virtual InvoiceAddresses InvoiceAddress { get; set; }
         public virtual OrderStatuses OrderStatus { get; set; }
         public virtual ShipAddresses ShipAddress { get; set; }
-        public virtual ShipModes ShipMode { get; set; }
         public virtual ShipStatuses ShipStatus { get; set; }
         public virtual Shops Shop { get; set; }
         public virtual AspNetUsers User { get; set; }
-        public virtual ICollection<Expenditures> Expenditures { get; set; }
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

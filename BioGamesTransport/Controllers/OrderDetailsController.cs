@@ -21,7 +21,7 @@ namespace BioGamesTransport.Controllers
         // GET: OrderDetails
         public async Task<IActionResult> Index()
         {
-            var biogamesTransContext = _context.OrderDetails.Include(o => o.Images).Include(o => o.Manufacturer).Include(o => o.Order).Include(o => o.ShipMode).Include(o => o.ShipStatus);
+            var biogamesTransContext = _context.OrderDetails.Include(o => o.Images).Include(o => o.Manufacturer).Include(o => o.Order).Include(o => o.ShipStatus);
             return View(await biogamesTransContext.ToListAsync());
         }
 
@@ -37,7 +37,6 @@ namespace BioGamesTransport.Controllers
                 .Include(o => o.Images)
                 .Include(o => o.Manufacturer)
                 .Include(o => o.Order)
-                .Include(o => o.ShipMode)
                 .Include(o => o.ShipStatus)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orderDetails == null)
@@ -54,7 +53,6 @@ namespace BioGamesTransport.Controllers
             ViewData["ImagesId"] = new SelectList(_context.Images, "Id", "Name");
             ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name");
             ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id");
-            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id");
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name");
             return View();
         }
@@ -64,7 +62,7 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderId,ShipModeId,ShipStatusId,ManufacturerId,ImagesId,ProductOutId,ProductName,ProductRef,Quantity,Price,Deposit,PurchasePrice,ShipPrice,ExpensePrice,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate,Comment,Created,Modified")] OrderDetails orderDetails)
+        public async Task<IActionResult> Create([Bind("Id,OrderId,ShipStatusId,ManufacturerId,ImagesId,ProductOutId,ProductName,ProductRef,Quantity,Price,Deposit,PurchasePrice,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate,Comment,Created,Modified")] OrderDetails orderDetails)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +73,6 @@ namespace BioGamesTransport.Controllers
             ViewData["ImagesId"] = new SelectList(_context.Images, "Id", "Name", orderDetails.ImagesId);
             ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", orderDetails.ManufacturerId);
             ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id", orderDetails.OrderId);
-            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", orderDetails.ShipModeId);
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name", orderDetails.ShipStatusId);
             return View(orderDetails);
         }
@@ -96,7 +93,6 @@ namespace BioGamesTransport.Controllers
             ViewData["ImagesId"] = new SelectList(_context.Images, "Id", "Name", orderDetails.ImagesId);
             ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", orderDetails.ManufacturerId);
             ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id", orderDetails.OrderId);
-            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", orderDetails.ShipModeId);
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name", orderDetails.ShipStatusId);
             return View(orderDetails);
         }
@@ -106,7 +102,7 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderId,ShipModeId,ShipStatusId,ManufacturerId,ImagesId,ProductOutId,ProductName,ProductRef,Quantity,Price,Deposit,PurchasePrice,ShipPrice,ExpensePrice,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate,Comment,Created,Modified")] OrderDetails orderDetails)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderId,ShipStatusId,ManufacturerId,ImagesId,ProductOutId,ProductName,ProductRef,Quantity,Price,Deposit,PurchasePrice,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate,Comment,Created,Modified")] OrderDetails orderDetails)
         {
             if (id != orderDetails.Id)
             {
@@ -136,7 +132,6 @@ namespace BioGamesTransport.Controllers
             ViewData["ImagesId"] = new SelectList(_context.Images, "Id", "Name", orderDetails.ImagesId);
             ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", orderDetails.ManufacturerId);
             ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id", orderDetails.OrderId);
-            ViewData["ShipModeId"] = new SelectList(_context.ShipModes, "Id", "Id", orderDetails.ShipModeId);
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name", orderDetails.ShipStatusId);
             return View(orderDetails);
         }
@@ -153,7 +148,6 @@ namespace BioGamesTransport.Controllers
                 .Include(o => o.Images)
                 .Include(o => o.Manufacturer)
                 .Include(o => o.Order)
-                .Include(o => o.ShipMode)
                 .Include(o => o.ShipStatus)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orderDetails == null)
