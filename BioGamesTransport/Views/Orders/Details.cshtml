@@ -1,144 +1,156 @@
 ﻿@model BioGamesTransport.Data.SQL.Orders
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Részletek";
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Rendelés részletek
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div style="float:left;width:50%">
+                            <dl class="dl-horizontal customer-description">
 
-<div>
-    <h4>Orders</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderOutId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderOutId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Deposit)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Deposit)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderDatetime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderDatetime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Modified)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Modified)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastCheck)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastCheck)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderOutRef)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderOutRef)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Payment)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Payment)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Shipment)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Shipment)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipUndertakenDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShipUndertakenDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipExpectedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShipExpectedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipDeliveredDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShipDeliveredDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InvoiceAddress)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InvoiceAddress.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderStatus.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipAddress)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShipAddress.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShipStatus.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Shop)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Shop.BaseUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.OrderOutRef)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.OrderOutRef)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.OrderStatus)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.OrderStatus.Name)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.ShipStatus)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.ShipStatus.Name)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Payment)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Payment)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Shipment)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Shipment)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Customer)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Customer.FullName) | @Html.DisplayFor(model => model.Customer.Email)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Comment)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Comment)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Shop)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Shop.BaseUrl)
+                                </dd>
+                                <dt>
+                                    Pénzügy
+                                </dt>
+                                <dd style="font-weight:bold; @if (Model.Residual > 0) { Write("color:red;"); } else { { Write("color:green;"); }} ">
+                                    @if (Model.Residual == 0)
+                                    {
+                                    Write("Fizetve");
+                                }
+                                    else
+                                    {
+                                    Write("Nincs kiegyenlítve");
+                                }
+                                </dd>
+                            </dl>
+                        </div>
+                        <div style="float:left;width:50%">
+                            <dl class="dl-horizontal customer-description">
+
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.TotalPrice)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.TotalPrice)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Deposit)
+                                </dt>
+                                <dd >
+                                    @Html.DisplayFor(model => model.Deposit)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Residual)
+                                </dt>
+                                <dd style="@if (Model.Residual > 0) { Write("color:red;"); }">
+                               @Html.DisplayFor(model => model.Residual)
+                                </dd>
+                                <dt >
+                                    @Html.DisplayNameFor(model => model.OrderDatetime)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.OrderDatetime)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.DepositDate)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.DepositDate)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.ShipUndertakenDate)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.ShipUndertakenDate)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.ShipExpectedDate)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.ShipExpectedDate)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.ShipDeliveredDate)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.ShipDeliveredDate)
+                                </dd>
+
+
+                            </dl>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr />
+                        <div>
+                            <a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@Model.Id">Szerkesztés</a> |
+                            <a class="btn btn-primary btn-xs" asp-action="Index">Vissza a listához</a>
+                        </div>
+                        <hr />
+                        @await Html.PartialAsync("~/Views/Orders/Partial/OrderDetails.cshtml")
+
+                        <hr />
+
+                        @await Html.PartialAsync("~/Views/Orders/Partial/addresses.cshtml")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

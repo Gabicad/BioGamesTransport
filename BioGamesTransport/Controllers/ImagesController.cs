@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BioGamesTransport.Data.SQL;
+using Microsoft.AspNetCore.Http;
 
 namespace BioGamesTransport.Controllers
 {
@@ -16,6 +17,14 @@ namespace BioGamesTransport.Controllers
         public ImagesController(BiogamesTransContext context)
         {
             _context = context;
+        }
+
+
+        public ActionResult ShowImg(int id)
+        {
+            var images = _context.Images.Find(id);
+
+            return File(images.Data, "image/jpg");
         }
 
         // GET: Images
@@ -148,5 +157,28 @@ namespace BioGamesTransport.Controllers
         {
             return _context.Images.Any(e => e.Id == id);
         }
+
+
+        // POST: Shops/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        public IActionResult imagetest()
+        {
+
+            var images =  _context.Images
+               .FirstOrDefaultAsync(m => m.Id == 1);
+            if (images == null)
+            {
+                return NotFound();
+            }
+
+            return View(images);
+        }
+
+
+
+
+
     }
 }

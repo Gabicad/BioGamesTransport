@@ -1,0 +1,125 @@
+﻿@model BioGamesTransport.Data.SQL.Orders
+
+<div class="clearfix"></div>
+
+<div class="clearfix"></div>
+<div id="ShipInvoCollaspse" class="">
+    <div class="table-responsive-xl">
+        <hr />
+        <h4>Számlázási adatok</h4>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.FirstName)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.LastName)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.Country)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.City)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.Zipcode)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.Address)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.Company)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.TaxNumber)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.Phone)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.InvoiceAddress.Comment)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.City)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.Zipcode)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.Company)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.TaxNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.Phone)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.InvoiceAddress.Comment)</td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+
+        <hr />
+        <h4>Szállítási adatok</h4>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.FirstName)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.LastName)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.Country)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.City)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.Zipcode)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.Address)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.Company)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.Phone)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.ShipAddress.Comment)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.City)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.Zipcode)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.Company)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.Phone)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.ShipAddress.Comment)</td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

@@ -1,0 +1,58 @@
+﻿@model BioGamesTransport.Data.SQL.Orders
+<br />
+<div class="clearfix"></div>
+<div class="table-responsive-xl">
+    <hr />
+    <h4>Rendelés részletek <a class="btn btn-primary btn-xs" asp-controller="OrderDetails" asp-action="Create" asp-route-order_id="@Model.OrderDetails.Last().OrderId">Új Termék hozzá adása</a></h4>
+    <hr />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().Images)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().ProductName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().ProductRef)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().Price)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().PurchasePrice)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().Quantity)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().ShipUndertakenDate)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().ShipExpectedDate)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().ShipDeliveredDate)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.OrderDetails.Last().Comment)</th>
+
+
+                <th scope="col">
+                    Műveletek
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.OrderDetails)
+            {
+            <tr>
+                <td class="text-center"> <img class="img-thumbnail" style="max-width:100px;" src='@Url.Action( "ShowImg", "images", new { id = item.ImagesId })' /></td>
+                <td class="text-center">@Html.DisplayFor(model => item.ProductName)</td>
+                <td class="text-center">@Html.DisplayFor(model => item.ProductRef)</td>
+                <td class="text-center">@Html.DisplayFor(model => item.Price)</td>
+                <td class="text-center">@Html.DisplayFor(model => item.PurchasePrice)</td>
+                <td class="text-center">@Html.DisplayFor(model => item.Quantity)</td>
+                <td class="text-center">@Html.DisplayFor(model => item.ShipUndertakenDate)</td>
+                <td class="text-center">@Html.DisplayFor(model => item.ShipExpectedDate)</td>
+                <td class="text-center">@Html.DisplayFor(model => item.ShipDeliveredDate)</td>
+                <td class="text-center">@Html.DisplayFor(model => item.Comment)</td>
+                <td>
+                    <a class="btn btn-warning btn-xs" asp-controller="OrderDetails" asp-action="Edit" asp-route-id="@item.Id">Módosítás</a> |
+                    <!--       <a asp-controller="OrderDetails" asp-action="Details" asp-route-id="@item.Id">Részletek</a> |-->
+                    <a class="btn btn-danger btn-xs" asp-controller="OrderDetails" asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
+                </td>
+            </tr>
+
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+

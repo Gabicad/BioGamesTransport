@@ -1,124 +1,57 @@
 ﻿@model BioGamesTransport.Data.SQL.Orders
-
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
 
-<h4>Orders</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ShopId" class="control-label"></label>
-                <select asp-for="ShopId" class ="form-control" asp-items="ViewBag.ShopId"></select>
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Új rendelés
             </div>
-            <div class="form-group">
-                <label asp-for="OrderStatusId" class="control-label"></label>
-                <select asp-for="OrderStatusId" class ="form-control" asp-items="ViewBag.OrderStatusId"></select>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form asp-action="Create" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#customerTab" data-toggle="tab">Ügyfél</a>
+                                    </li>
+                                    <li>
+                                        <a href="#orderTab" data-toggle="tab">Megrendelés</a>
+                                    </li>
+                                    <li>
+                                        <a href="#productsTab" data-toggle="tab">Termékek</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="customerTab">
+                                        @await Html.PartialAsync("~/Views/Orders/Partial/CreateCustomer.cshtml")
+                                    </div>
+                                    <div class="tab-pane fade" id="orderTab">
+                                        @await Html.PartialAsync("~/Views/Orders/Partial/BasicOrder.cshtml")
+                                    </div>
+                                    <div class="tab-pane fade" id="productsTab">
+                                        @await Html.PartialAsync("~/Views/Orders/Partial/CreateOrderDetails.cshtml")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group text-center">
+                                <input type="submit" value="Mentés" class="btn btn-default" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+           
             </div>
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderOutId" class="control-label"></label>
-                <input asp-for="OrderOutId" class="form-control" />
-                <span asp-validation-for="OrderOutId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipAddressId" class="control-label"></label>
-                <select asp-for="ShipAddressId" class ="form-control" asp-items="ViewBag.ShipAddressId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoiceAddressId" class="control-label"></label>
-                <select asp-for="InvoiceAddressId" class ="form-control" asp-items="ViewBag.InvoiceAddressId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipStatusId" class="control-label"></label>
-                <select asp-for="ShipStatusId" class ="form-control" asp-items="ViewBag.ShipStatusId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalPrice" class="control-label"></label>
-                <input asp-for="TotalPrice" class="form-control" />
-                <span asp-validation-for="TotalPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Deposit" class="control-label"></label>
-                <input asp-for="Deposit" class="form-control" />
-                <span asp-validation-for="Deposit" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderDatetime" class="control-label"></label>
-                <input asp-for="OrderDatetime" class="form-control" />
-                <span asp-validation-for="OrderDatetime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Modified" class="control-label"></label>
-                <input asp-for="Modified" class="form-control" />
-                <span asp-validation-for="Modified" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comment" class="control-label"></label>
-                <input asp-for="Comment" class="form-control" />
-                <span asp-validation-for="Comment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastCheck" class="control-label"></label>
-                <input asp-for="LastCheck" class="form-control" />
-                <span asp-validation-for="LastCheck" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderOutRef" class="control-label"></label>
-                <input asp-for="OrderOutRef" class="form-control" />
-                <span asp-validation-for="OrderOutRef" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Payment" class="control-label"></label>
-                <input asp-for="Payment" class="form-control" />
-                <span asp-validation-for="Payment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Shipment" class="control-label"></label>
-                <input asp-for="Shipment" class="form-control" />
-                <span asp-validation-for="Shipment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipUndertakenDate" class="control-label"></label>
-                <input asp-for="ShipUndertakenDate" class="form-control" />
-                <span asp-validation-for="ShipUndertakenDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipExpectedDate" class="control-label"></label>
-                <input asp-for="ShipExpectedDate" class="form-control" />
-                <span asp-validation-for="ShipExpectedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipDeliveredDate" class="control-label"></label>
-                <input asp-for="ShipDeliveredDate" class="form-control" />
-                <span asp-validation-for="ShipDeliveredDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

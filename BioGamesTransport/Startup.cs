@@ -46,7 +46,7 @@ namespace BioGamesTransport
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-          
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

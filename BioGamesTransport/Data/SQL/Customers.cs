@@ -37,6 +37,11 @@ namespace BioGamesTransport.Data.SQL
         [Display(Name = "Név")]
         public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
 
+        [NotMapped]
+        [Display(Name = "Info")]
+        public string ShortDetails { get { return string.Format("{0} {1} | {2} | {3}", FirstName, LastName, Email, Company); } }
+
+
 
         public virtual Shops Shop { get; set; }
         public virtual ICollection<InvoiceAddresses> InvoiceAddresses { get; set; }

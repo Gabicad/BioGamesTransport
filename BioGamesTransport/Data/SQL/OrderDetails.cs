@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BioGamesTransport.Data.SQL
 {
@@ -18,13 +19,34 @@ namespace BioGamesTransport.Data.SQL
         public int? ProductOutId { get; set; }
         public string ProductName { get; set; }
         public string ProductRef { get; set; }
+
+        [Display(Name = "Darab")]
+        [DisplayFormat(DataFormatString = "{0} db", ApplyFormatInEditMode = false)]
         public int Quantity { get; set; }
+
+        [Display(Name = "Ár")]
+        [DisplayFormat(DataFormatString = "{0:# ###} Ft", ApplyFormatInEditMode = false)]
         public double Price { get; set; }
+
+        [Display(Name = "Előleg")]
+        [DisplayFormat(DataFormatString = "{0:# ###} Ft", ApplyFormatInEditMode = false)]
         public double? Deposit { get; set; }
+
+        [Display(Name = "Beszerzési ár")]
+        [DisplayFormat(DataFormatString = "{0:# ###} Ft", ApplyFormatInEditMode = false)]
         public double? PurchasePrice { get; set; }
+
+        [Display(Name = "Vállalt szállítás")]
+        [DisplayFormat(DataFormatString = "{0:yyyy.MM.dd}", ApplyFormatInEditMode = false)]
         public DateTime? ShipUndertakenDate { get; set; }
+        [Display(Name = "Várható szállítás")]
+        [DisplayFormat(DataFormatString = "{0:yyyy.MM.dd}", ApplyFormatInEditMode = false)]
         public DateTime? ShipExpectedDate { get; set; }
+        [Display(Name = "Valós kiszállítás")]
+        [DisplayFormat(DataFormatString = "{0:yyyy.MM.dd}", ApplyFormatInEditMode = false)]
         public DateTime? ShipDeliveredDate { get; set; }
+
+        [Display(Name = "Megjegyzés")]
         public string Comment { get; set; }
         public DateTime? Created { get; set; }
         public DateTime? Modified { get; set; }

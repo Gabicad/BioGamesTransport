@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BioGamesTransport.Data.SQL;
 
 namespace BioGamesTransport.Data.SQL
 {
@@ -11,6 +12,11 @@ namespace BioGamesTransport.Data.SQL
         {
             OrderDetails = new HashSet<OrderDetails>();
         }
+
+        public Customers Customers = new Customers();
+        public InvoiceAddresses InvoiceAddresses = new InvoiceAddresses();
+        public ShipAddresses ShipAddresses = new ShipAddresses();
+        public OrderDetails OrderDetailsForm = new OrderDetails();
 
 
         public int Id { get; set; }
@@ -24,11 +30,11 @@ namespace BioGamesTransport.Data.SQL
         public int? ShipStatusId { get; set; }
 
         [Display(Name = "Fizetendő")]
-        [DisplayFormat(DataFormatString = "{0:# ###} Ft", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double TotalPrice { get; set; }
 
         [Display(Name = "Előleg")]
-        [DisplayFormat(DataFormatString = "{0:# ###} Ft", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double? Deposit { get; set; }
 
  
@@ -46,7 +52,7 @@ namespace BioGamesTransport.Data.SQL
         public string Payment { get; set; }
         public string Shipment { get; set; }
 
-        [Display(Name = "Válalt szállítás")]
+        [Display(Name = "Vállalt szállítás")]
         [DisplayFormat(DataFormatString = "{0:yyyy.MM.dd}", ApplyFormatInEditMode = false)]
         public DateTime? ShipUndertakenDate { get; set; }
 
@@ -81,8 +87,13 @@ namespace BioGamesTransport.Data.SQL
 
         [NotMapped]
         [Display(Name = "Maradvány")]
-        [DisplayFormat(DataFormatString = "{0:# ###} Ft", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double Residual { get => setAutoField(); }
+
+        [NotMapped]
+        [Display(Name = "Összes termék")]
+        [DisplayFormat(DataFormatString = "{0} db", ApplyFormatInEditMode = false)]
+        public int ProdCount { get => countProductOrderDetails(); }
 
         private double setAutoField()
         {
@@ -95,6 +106,19 @@ namespace BioGamesTransport.Data.SQL
                 return TotalPrice;
             }
         }
+
+
+        private int countProductOrderDetails()
+        {
+           int i = 0;
+            foreach(OrderDetails item in OrderDetails)
+            {
+                i = item.Quantity;
+            }
+            return i;
+        }
+
+
 
 
     }

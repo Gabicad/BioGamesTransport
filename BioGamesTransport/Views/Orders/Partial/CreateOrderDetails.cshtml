@@ -1,0 +1,39 @@
+﻿@model BioGamesTransport.Data.SQL.Orders
+
+<br />
+<p><a class="btn btn-success" id="PostOrderDetails" href="#">Hozzáad</a></p>
+<div>
+    <div>
+        <input type="hidden" value="0" id="last_id_prod_details" />
+        <table class="table table-striped table-bordered table-hover" id="prodDetailsTable">
+            <tr>
+                <th width="25%">Név</th>
+                <th width="10%">Cikkszám</th>
+                <th width="9%">Ár</th>
+                <th width="8%">Beszerzési ár</th>
+                <th width="8%">Darab</th>
+                <th width="5%">Vállalt szállítás</th>
+                <th width="5%">Várható szállítás</th>
+                <th width="15%">Gyártó</th>
+                <th width="15%">Kép</th>
+            </tr>
+            <tr>
+                <td><input asp-for="OrderDetails.First().ProductName" name="OrderDetails[0].ProductName" class="form-control" /></td>
+                <td><input class="form-control" type="text" id="OrderDetailsForm_ProductRef" name="OrderDetails[0].ProductRef" value=""></td>
+                <td><input class="form-control" type="text" id="OrderDetailsForm_Price" name="OrderDetails[0].Price" value=""></td>
+                <td><input class="form-control" type="text" id="OrderDetailsForm_PurchasePrice" name="OrderDetails[0].PurchasePrice" value=""></td>
+                <td><input class="form-control" type="number" id="OrderDetailsForm_Quantity" name="OrderDetails[0].Quantity" value=""></td>
+                <td><input class="form-control" type="datetime-local" id="OrderDetailsForm_ShipUndertakenDate" name="OrderDetails[0].ShipUndertakenDate" value=""></td>
+                <td><input class="form-control" type="datetime-local" id="OrderDetailsForm_ShipExpectedDate" name="OrderDetails[0].ShipExpectedDate" value=""></td>
+                <td>
+                    <select class="form-control" id="OrderDetailsForm_ManufacturerId" name="OrderDetails[0].ManufacturerId"></select>
+                </td>
+                <td><input class="form-control" type="file" name="Image"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="products_detail">
+
+
+</div>

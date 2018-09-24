@@ -207,5 +207,22 @@ namespace BioGamesTransport.Controllers
         {
             return _context.Customers.Any(e => e.Id == id);
         }
+
+       
+        public async Task<JsonResult> GetAddressesAsync(int id)
+        {
+            Customers customers = await  _context.Customers
+                .Include(s => s.ShipAddresses)
+                .Include(i => i.InvoiceAddresses)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+           
+
+
+            return Json(customers);
+        }
+
+
+
     }
 }

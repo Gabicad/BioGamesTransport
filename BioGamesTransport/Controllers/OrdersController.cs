@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BioGamesTransport.Data.SQL;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace BioGamesTransport.Controllers
 {
     public class OrdersController : Controller
     {
         private readonly BiogamesTransContext _context;
+        private Random random = new Random();
 
         public OrdersController(BiogamesTransContext context)
         {
@@ -35,6 +38,7 @@ namespace BioGamesTransport.Controllers
 
             var orders = await _context.Orders
                 .Include(o => o.Customer)
+                .Include(o => o.OrderDetails)
                 .Include(o => o.InvoiceAddress)
                 .Include(o => o.OrderStatus)
                 .Include(o => o.ShipAddress)
@@ -53,12 +57,13 @@ namespace BioGamesTransport.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Email");
-            ViewData["InvoiceAddressId"] = new SelectList(_context.InvoiceAddresses, "Id", "Address");
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "ShortDetails");
+           // ViewData["InvoiceAddressId"] = new SelectList(_context.InvoiceAddresses, "Id", "Address");
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "Id", "Name");
-            ViewData["ShipAddressId"] = new SelectList(_context.ShipAddresses, "Id", "Address");
+          //  ViewData["ShipAddressId"] = new SelectList(_context.ShipAddresses, "Id", "Address");
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name");
-            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl");
+            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name");
+            ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "Name");
             ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
             return View();
         }
@@ -68,22 +73,102 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ShopId,OrderStatusId,CustomerId,UserId,OrderOutId,ShipAddressId,InvoiceAddressId,ShipStatusId,TotalPrice,Deposit,OrderDatetime,Created,Modified,Comment,LastCheck,OrderOutRef,Payment,Shipment,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate")] Orders orders)
+        public async Task<IActionResult> Create(Orders orders,Customers Customer, InvoiceAddresses InvoiceAddress, ShipAddresses ShipAddresses, IFormFile[] Image)
         {
+
+
+          
+
+            if(orders.CustomerId > 0)
+            {
+                Customers customers = _context.Customers.Where(c => c.Id == orders.CustomerId).FirstOrDefault();
+                orders.Customer = customers;
+            }
+            else
+            {
+                orders.Customer = Customer;
+                orders.Customer.InvoiceAddresses.Add(InvoiceAddress);
+                orders.Customer.ShipAddresses.Add(ShipAddresses);
+            }
+
+            DateTime cretaed_time = DateTime.Now;
+
+            int i = 0;
+            double total=0;
+            foreach ( var item in orders.OrderDetails)
+            {
+                var file = Image[i];
+                if (file.Length > 0)
+                {
+                    Images dbImages = new Images();
+                    dbImages.Name = item.ProductName;
+
+                    //Convert Image to byte and save to database
+                    {
+                        byte[] p1 = null;
+                        using (var fs1 = file.OpenReadStream())
+                        using (var ms1 = new MemoryStream())
+                        {
+                            fs1.CopyTo(ms1);
+                            p1 = ms1.ToArray();
+                        }
+                        dbImages.Data = p1;
+                    }
+                    item.Images = dbImages;
+                }
+               
+
+                i++;
+
+                total += item.Price * item.Quantity;
+                item.Created = cretaed_time;
+                if(orders.ShipExpectedDate != null)
+                {
+                    item.ShipExpectedDate = orders.ShipExpectedDate;
+                }
+                if (orders.ShipUndertakenDate != null)
+                {
+                    item.ShipUndertakenDate = orders.ShipUndertakenDate;
+                }
+  
+            }
+
+            orders.TotalPrice = total;
+            orders.OrderOutRef = RandomString(10);
+            orders.Created = cretaed_time;
+
             if (ModelState.IsValid)
             {
                 _context.Add(orders);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Email", orders.CustomerId);
-            ViewData["InvoiceAddressId"] = new SelectList(_context.InvoiceAddresses, "Id", "Address", orders.InvoiceAddressId);
+
+            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name");
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "ShortDetails", orders.CustomerId);
+            //ViewData["InvoiceAddressId"] = new SelectList(_context.InvoiceAddresses, "Id", "Address", orders.InvoiceAddressId);
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "Id", "Name", orders.OrderStatusId);
-            ViewData["ShipAddressId"] = new SelectList(_context.ShipAddresses, "Id", "Address", orders.ShipAddressId);
+            //ViewData["ShipAddressId"] = new SelectList(_context.ShipAddresses, "Id", "Address", orders.ShipAddressId);
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name", orders.ShipStatusId);
             ViewData["ShopId"] = new SelectList(_context.Shops, "Id", "BaseUrl", orders.ShopId);
             ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", orders.UserId);
             return View(orders);
+        }
+
+
+        
+        public  string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            int count = 0;
+            string tmp ;
+            do
+            {
+                tmp = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+                var tmporder = _context.Orders.Where(o => o.OrderOutRef == tmp).ToListAsync();
+                count = tmporder.Result.Count();
+            } while (count > 0);
+            return "INT"+tmp;
         }
 
         // GET: Orders/Edit/5
