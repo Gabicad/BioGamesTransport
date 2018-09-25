@@ -9,6 +9,39 @@ $(document).ready(function () {
         responsive: true
     });
 
+    $('#dataTables-customer').DataTable({
+        "pageLength": 50,
+        responsive: true
+    });
+
+
+    $("#first_step").click(function (event ) {
+        $("#li1Step").removeClass("active");
+        $("#li2Step").addClass("active");
+        $("#li3Step").removeClass("active");
+    });
+
+    $("#sec_step_back").click(function () {
+        $("#li1Step").addClass("active");
+        $("#li2Step").removeClass("active");
+        $("#li3Step").removeClass("active");
+    });
+
+    $("#third_step_back").click(function () {
+        $("#li1Step").removeClass("active");
+        $("#li2Step").addClass("active");
+        $("#li3Step").removeClass("active");
+    });
+    
+
+    $("#sec_step").click(function () {
+        $("#li1Step").removeClass("active");
+        $("#li2Step").removeClass("active");
+        $("#li3Step").addClass("active");
+    });
+
+ 
+
 
 
     $("#CustomerId").change(function () {

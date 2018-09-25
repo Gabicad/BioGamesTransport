@@ -97,6 +97,9 @@ namespace BioGamesTransport.Controllers
             double total=0;
             foreach ( var item in orders.OrderDetails)
             {
+          
+                bool exists = Image.ElementAtOrDefault(i) != null;
+                if (exists) { 
                 var file = Image[i];
                 if (file.Length > 0)
                 {
@@ -116,7 +119,7 @@ namespace BioGamesTransport.Controllers
                     }
                     item.Images = dbImages;
                 }
-               
+                }
 
                 i++;
 
@@ -135,6 +138,7 @@ namespace BioGamesTransport.Controllers
 
             orders.TotalPrice = total;
             orders.OrderOutRef = RandomString(10);
+            orders.OrderOutId = 0;
             orders.Created = cretaed_time;
 
             if (ModelState.IsValid)

@@ -67,29 +67,34 @@ namespace BioGamesTransport.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                if (Image.Length > 0)
+               
+                if (Image != null)
                 {
-                    Images dbImages = new Images();
-                    dbImages.Name = orderDetails.ProductName;
-
-                    //Convert Image to byte and save to database
+                    if (Image.Length > 0)
                     {
-                        byte[] p1 = null;
-                        using (var fs1 = Image.OpenReadStream())
-                        using (var ms1 = new MemoryStream())
+                        Images dbImages = new Images();
+                        dbImages.Name = orderDetails.ProductName;
+
+                        //Convert Image to byte and save to database
                         {
-                            fs1.CopyTo(ms1);
-                            p1 = ms1.ToArray();
+                            byte[] p1 = null;
+                            using (var fs1 = Image.OpenReadStream())
+                            using (var ms1 = new MemoryStream())
+                            {
+                                fs1.CopyTo(ms1);
+                                p1 = ms1.ToArray();
+                            }
+                            dbImages.Data = p1;
                         }
-                        dbImages.Data = p1;
+                        orderDetails.Images = dbImages;
                     }
-                    orderDetails.Images = dbImages;
                 }
 
 
                 _context.Add(orderDetails);
                 await _context.SaveChangesAsync();
+                await RecalculateTotalPrice(orderDetails.OrderId);
+
                 return RedirectToAction("Details", "Orders", new { id = orderDetails.OrderId });
             }
 
@@ -197,7 +202,10 @@ namespace BioGamesTransport.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                await RecalculateTotalPrice(orderDetails.OrderId);
+
+                return RedirectToAction("Details", "Orders", new { id = orderDetails.OrderId });
             }
             ViewData["ImagesId"] = new SelectList(_context.Images, "Id", "Name", orderDetails.ImagesId);
             ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", orderDetails.ManufacturerId);
@@ -205,6 +213,8 @@ namespace BioGamesTransport.Controllers
             ViewData["ShipStatusId"] = new SelectList(_context.ShipStatuses, "Id", "Name", orderDetails.ShipStatusId);
             return View(orderDetails);
         }
+
+
 
         // GET: OrderDetails/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -234,14 +244,30 @@ namespace BioGamesTransport.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var orderDetails = await _context.OrderDetails.FindAsync(id);
+            int tmpID = orderDetails.OrderId;
             _context.OrderDetails.Remove(orderDetails);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            await RecalculateTotalPrice(tmpID);
+            return RedirectToAction("Details", "Orders", new { id = tmpID });
         }
 
         private bool OrderDetailsExists(int id)
         {
             return _context.OrderDetails.Any(e => e.Id == id);
         }
+
+        private async Task RecalculateTotalPrice(int orderId)
+        {
+            var Orders = await _context.Orders
+            .Include(o => o.OrderDetails)
+            .FirstOrDefaultAsync(m => m.Id == orderId);
+
+            Orders.TotalPrice = Orders.ReCalculateTotalPrice(Orders.OrderDetails);
+            _context.Update(Orders);
+            await _context.SaveChangesAsync();
+        }
+
+
+
     }
 }

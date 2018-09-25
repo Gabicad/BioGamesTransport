@@ -2,14 +2,14 @@
 <br />
 
 <div class="form-group col-md-3 input-height float-left">
-    <label asp-for="CustomerId" class="control-label"></label>
+    <label asp-for="CustomerId" class="control-label "></label>
     <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId">
         <option value="-1">Válasszon!</option>
         <option value="0">Új ügyfél</option>
     </select>
 </div>
-<div id="SelectInvoAdd" class="form-group col-md-3 input-height float-left"></div>
-<div id="SelectShipAdd" class="form-group col-md-3 input-height float-left"></div>
+<div id="SelectInvoAdd" class="form-group col-md-3 input-height float-left "></div>
+<div id="SelectShipAdd" class="form-group col-md-3 input-height float-left "></div>
 <div class="clearfix"></div>
 
 <div id="NewCustomer" class="collapseCustomer" style="display:none">
@@ -75,9 +75,9 @@
         </table>
 
         <div class="clearfix"></div>
-        <hr />
+        <hr style="margin:0!important;" />
         <h4>Számlázási cím</h4>
-        <hr />
+        <hr style="margin:0!important;" />
         <table class="table table-striped table-bordered table-hover">
             <tr>
                 <td>
@@ -98,15 +98,16 @@
                     <span asp-validation-for="InvoiceAddresses.Country" class="text-danger"></span>
                 </td>
                 <td>
-                    <label asp-for="InvoiceAddresses.City" class="control-label"></label>
-                    <input asp-for="InvoiceAddresses.City" class="form-control" />
-                    <span asp-validation-for="InvoiceAddresses.City" class="text-danger"></span>
-                </td>
-                <td>
                     <label asp-for="InvoiceAddresses.Zipcode" class="control-label"></label>
                     <input asp-for="InvoiceAddresses.Zipcode" class="form-control" />
                     <span asp-validation-for="InvoiceAddresses.Zipcode" class="text-danger"></span>
                 </td>
+                <td>
+                    <label asp-for="InvoiceAddresses.City" class="control-label"></label>
+                    <input asp-for="InvoiceAddresses.City" class="form-control" />
+                    <span asp-validation-for="InvoiceAddresses.City" class="text-danger"></span>
+                </td>
+
                 <td>
                     <label asp-for="InvoiceAddresses.Address" class="control-label"></label>
                     <input asp-for="InvoiceAddresses.Address" class="form-control" />
@@ -140,9 +141,9 @@
         </div>
         <div class="clearfix"></div>
         <div id="ship_box_id">
-            <hr />
+            <hr style="margin:0!important;" />
             <h4>Szállítási cím</h4>
-            <hr />
+            <hr style="margin:0!important;" />
             <table class="table table-striped table-bordered table-hover">
                 <tr>
                     <td>
@@ -162,15 +163,16 @@
                         <span asp-validation-for="ShipAddresses.Country" class="text-danger"></span>
                     </td>
                     <td>
-                        <label asp-for="ShipAddresses.City" class="control-label"></label>
-                        <input asp-for="ShipAddresses.City" class="form-control" />
-                        <span asp-validation-for="ShipAddresses.City" class="text-danger"></span>
-                    </td>
-                    <td>
                         <label asp-for="ShipAddresses.Zipcode" class="control-label"></label>
                         <input asp-for="ShipAddresses.Zipcode" class="form-control" />
                         <span asp-validation-for="ShipAddresses.Zipcode" class="text-danger"></span>
                     </td>
+                    <td>
+                        <label asp-for="ShipAddresses.City" class="control-label"></label>
+                        <input asp-for="ShipAddresses.City" class="form-control" />
+                        <span asp-validation-for="ShipAddresses.City" class="text-danger"></span>
+                    </td>
+
                     <td>
                         <label asp-for="ShipAddresses.Address" class="control-label"></label>
                         <input asp-for="ShipAddresses.Address" class="form-control" />
@@ -196,5 +198,6 @@
         </div>
     </div>
 </div>
-
-<a class="btn btn-success" href="#orderTab" data-toggle="tab">Következő >></a>
+<div class="text-center" style="margin-top:30px;">
+    <a class="btn btn-success" id="first_step" href="#orderTab" data-toggle="tab">Tovább >></a>
+</div>

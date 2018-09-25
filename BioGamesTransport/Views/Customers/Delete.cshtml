@@ -1,16 +1,17 @@
 ﻿@model BioGamesTransport.Data.SQL.Customers
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Törlés";
 }
 
-<h2>Delete</h2>
+<h2>Törlés</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Biztos benne, hogy törölni szeretné a vevőt ?</h3>
+<p>Szállítási és számlázási címek is törlődnek</p>
 <div>
-    <h4>Customers</h4>
+    <h4>Vevő</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal customer-description">
         <dt>
             @Html.DisplayNameFor(model => model.OutCustomerId)
         </dt>
@@ -29,12 +30,7 @@
         <dd>
             @Html.DisplayFor(model => model.LastName)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Newsletter)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Newsletter)
-        </dd>
+       
         <dt>
             @Html.DisplayNameFor(model => model.Type)
         </dt>
@@ -90,10 +86,11 @@
             @Html.DisplayFor(model => model.Shop.BaseUrl)
         </dd>
     </dl>
-    
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="btn btn-primary btn-sm"  asp-action="Index">Vissza a listához</a>
+        <input type="submit" value="Törlés" class="btn btn-danger" /> |
+        <span style="padding-left:50px;"></span>
+        <a class="btn btn-primary" asp-controller="Customers" asp-action="Index">MÉGSEM</a>
     </form>
+
 </div>

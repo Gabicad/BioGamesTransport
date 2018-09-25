@@ -2,11 +2,7 @@
 
 
 <div class="clearfix"></div>
-<br />
-<button class="btn btn-info" data-toggle="collapse" data-target="#ShipInvoCollaspse">Szállítási és számlázási adatok megjelenítése</button>
-<br />
-<div class="clearfix"></div>
-<div id="ShipInvoCollaspse" class="collapse">
+<div id="ShipInvoCollaspse" >
     <div class="table-responsive-xl">
         <hr />
         <h4>Számlázási adatok</h4>
@@ -70,7 +66,7 @@
                             <td>
 
                                 <a class="btn btn-warning btn-xs" asp-controller="InvoiceAddresses" asp-action="Edit" asp-route-id="@item.Id">Módosítás</a> |
-                                <a class="btn btn-primary btn-xs" asp-controller="InvoiceAddresses" asp-action="Details" asp-route-id="@item.Id">Részletek</a> |
+                              
                                 <a class="btn btn-danger btn-xs" asp-controller="InvoiceAddresses" asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
                             </td>
                         </tr>
@@ -78,10 +74,10 @@
                 }
             </tbody>
         </table>
-        <a asp-controller="InvoiceAddresses" asp-action="Create" asp-route-customer_id="@Model.Id">Új számlázási cím hozzáadása</a>
-        <hr />
+        <a class="btn btn-success" asp-controller="InvoiceAddresses" asp-action="Create" asp-route-customer_id="@Model.Id">Új számlázási cím hozzáadása</a>
+        <hr style="margin:0!important;" />
         <h4>Szállítási adatok</h4>
-        <hr />
+        <hr style="margin:0!important;" />
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -137,7 +133,7 @@
                             <td>
 
                                 <a class="btn btn-warning btn-xs" asp-controller="ShipAddresses" asp-action="Edit" asp-route-id="@item.Id">Módosítás</a> |
-                                <a class="btn btn-primary btn-xs" asp-controller="ShipAddresses" asp-action="Details" asp-route-id="@item.Id">Részletek</a> |
+                    
                                 <a class="btn btn-danger btn-xs" asp-controller="ShipAddresses" asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
                             </td>
                         </tr>
@@ -145,6 +141,6 @@
                 }
             </tbody>
         </table>
-        <a asp-controller="ShipAddresses" asp-action="Create" asp-route-customer_id="@Model.Id">Új szállítási cím hozzáadása</a>
+        <a class="btn btn-success" asp-controller="ShipAddresses" asp-action="Create" asp-route-customer_id="@Model.Id">Új szállítási cím hozzáadása</a>
     </div>
 </div>

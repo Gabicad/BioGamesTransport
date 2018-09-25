@@ -130,10 +130,21 @@ namespace BioGamesTransport.Data.SQL
            int i = 0;
             foreach(OrderDetails item in OrderDetails)
             {
-                i = item.Quantity;
+                i += item.Quantity;
             }
             return i;
         }
+
+        public double ReCalculateTotalPrice(ICollection<OrderDetails> OrderDetails)
+        {
+            double i = 0;
+            foreach (OrderDetails item in OrderDetails)
+            {
+                i += item.Price*item.Quantity;
+            }
+            return i;
+        }
+
 
 
 

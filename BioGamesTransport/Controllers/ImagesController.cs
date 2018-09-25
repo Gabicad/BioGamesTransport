@@ -20,11 +20,21 @@ namespace BioGamesTransport.Controllers
         }
 
 
-        public ActionResult ShowImg(int id)
+        public ActionResult ShowImg(int? id)
         {
+            if (id == null)
+            {
+                return File("/images/no-image.png", "image/png");
+            }
+
             var images = _context.Images.Find(id);
 
-            return File(images.Data, "image/jpg");
+            if(images.Data != null)
+            {
+                return File(images.Data, "image/jpg");
+            }
+            return File("/images/no-image.png", "image/png");
+
         }
 
         // GET: Images

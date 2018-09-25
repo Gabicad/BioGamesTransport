@@ -45,9 +45,9 @@ namespace BioGamesTransport.Controllers
         }
 
         // GET: InvoiceAddresses/Create
-        public IActionResult Create()
+        public IActionResult Create(int? customer_id)
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Email");
+            ViewData["CustomerId"] = customer_id;
             return View();
         }
 
@@ -56,15 +56,17 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CustomerId,OutId,FirstName,LastName,Country,City,Zipcode,Address,Company,TaxNumber,Phone,Comment,Created,Modified,Deleted,Default")] InvoiceAddresses invoiceAddresses)
+        public async Task<IActionResult> Create(int? customer_id, InvoiceAddresses invoiceAddresses)
         {
             if (ModelState.IsValid)
             {
+                DateTime cretaed_time = DateTime.Now;
+                invoiceAddresses.Created = cretaed_time;
                 _context.Add(invoiceAddresses);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Customers", new { id = invoiceAddresses.CustomerId });
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Email", invoiceAddresses.CustomerId);
+             ViewData["CustomerId"] = customer_id;
             return View(invoiceAddresses);
         }
 
@@ -101,6 +103,8 @@ namespace BioGamesTransport.Controllers
             {
                 try
                 {
+                    DateTime cretaed_time = DateTime.Now;
+                    invoiceAddresses.Modified = cretaed_time;
                     _context.Update(invoiceAddresses);
                     await _context.SaveChangesAsync();
                 }
@@ -115,7 +119,7 @@ namespace BioGamesTransport.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Customers", new { id = invoiceAddresses.CustomerId });
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Email", invoiceAddresses.CustomerId);
             return View(invoiceAddresses);
@@ -146,9 +150,11 @@ namespace BioGamesTransport.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var invoiceAddresses = await _context.InvoiceAddresses.FindAsync(id);
-            _context.InvoiceAddresses.Remove(invoiceAddresses);
+            invoiceAddresses.Deleted = true;
+
+            _context.Update(invoiceAddresses);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Customers", new { id = invoiceAddresses.CustomerId });
         }
 
         private bool InvoiceAddressesExists(int id)

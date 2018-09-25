@@ -65,10 +65,11 @@ namespace BioGamesTransport.Controllers
 
             var customers = await _context.Customers
                 .Include(c => c.Shop)
+                .Include(c => c.InvoiceAddresses).Where(x => x.InvoiceAddresses.Any(y => !y.Deleted))
+                .Include(c => c.ShipAddresses).Where(x => x.ShipAddresses.Any(y => !y.Deleted))
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            _context.Entry(customers).Collection("InvoiceAddresses").Load();
-            _context.Entry(customers).Collection("ShipAddresses").Load();
+
             
 
             if (customers == null)
@@ -197,8 +198,19 @@ namespace BioGamesTransport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customers = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customers);
+            Customers customers = await _context.Customers.Include(s => s.ShipAddresses).Include(i => i.InvoiceAddresses).FirstOrDefaultAsync(m => m.Id == id);
+
+            foreach(ShipAddresses ship in customers.ShipAddresses)
+            {
+                ship.Deleted = true;
+            }
+
+            foreach (InvoiceAddresses invo in customers.InvoiceAddresses)
+            {
+                invo.Deleted = true;
+            }
+            customers.Deleted = true;
+            _context.Update(customers);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
