@@ -20,13 +20,24 @@ namespace BioGamesTransport.Data.SQL
 
 
         public int Id { get; set; }
+
+        [Display(Name = "Bolt")]
         public int ShopId { get; set; }
+
+        [Display(Name = "Megrendelés Státusz")]
         public int OrderStatusId { get; set; }
+
+        [Display(Name = "Vevő")]
         public int CustomerId { get; set; }
         public string UserId { get; set; }
+
+        [Display(Name = "Azonosító")]
         public int OrderOutId { get; set; }
+        [Display(Name = "Szállítási cím")]
         public int ShipAddressId { get; set; }
+        [Display(Name = "Számlázási cím")]
         public int InvoiceAddressId { get; set; }
+        [Display(Name = "Szállítási állapot")]
         public int? ShipStatusId { get; set; }
 
         [Display(Name = "Fizetendő")]
@@ -44,12 +55,15 @@ namespace BioGamesTransport.Data.SQL
 
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
+        [Display(Name = "Megjegyzés")]
         public string Comment { get; set; }
         public DateTime? LastCheck { get; set; }
 
         [Display(Name = "Azonosító")]
         public string OrderOutRef { get; set; }
+        [Display(Name = "Fizetési mód")]
         public string Payment { get; set; }
+        [Display(Name = "Szállítási mód")]
         public string Shipment { get; set; }
 
         [Display(Name = "Vállalt szállítás")]
@@ -70,14 +84,17 @@ namespace BioGamesTransport.Data.SQL
 
         [Display(Name = "Ügyfél")]
         public virtual Customers Customer { get; set; }
+        [Display(Name = "Számlázási cím")]
         public virtual InvoiceAddresses InvoiceAddress { get; set; }
 
         [Display(Name = "Megrendelés állapot")]
         public virtual OrderStatuses OrderStatus { get; set; }
+        [Display(Name = "Szállítási cím")]
         public virtual ShipAddresses ShipAddress { get; set; }
 
         [Display(Name = "Szállíás állapot")]
         public virtual ShipStatuses ShipStatus { get; set; }
+        [Display(Name = "Bolt")]
         public virtual Shops Shop { get; set; }
         public virtual AspNetUsers User { get; set; }
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }

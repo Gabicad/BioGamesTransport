@@ -2,11 +2,13 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
-
-
-
 $(document).ready(function () {
+
+    $('#dataTables-orders').DataTable({
+        "pageLength": 25,
+        responsive: true
+    });
+
 
 
     $("#CustomerId").change(function () {
@@ -21,15 +23,9 @@ $(document).ready(function () {
         }
     });
 
-    $("#ship_invoice_chk").change(function () {
-        if ($(this).prop('checked')) {
+    $("#ship_invoice_chk").click(function () {
 
             copy_inv_to_ship();
-
-        } else {
-
-            clear_input();
-        }
     });
 
     var ob = $("#OrderDetailsForm_ManufacturerId");
