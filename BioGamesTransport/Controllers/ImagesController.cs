@@ -169,9 +169,7 @@ namespace BioGamesTransport.Controllers
         }
 
 
-        // POST: Shops/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
 
         public IActionResult imagetest()
         {
@@ -188,6 +186,23 @@ namespace BioGamesTransport.Controllers
 
 
 
+
+       [HttpPost]
+         public IFormFileCollection imageupload(IFormFileCollection Image)
+        {
+
+            int i = 0;
+            foreach (IFormFile item in HttpContext.Request.Form.Files)
+            {
+                if (item.Name == "Image" + i)
+                {
+
+                }
+                i++;
+            }
+
+             return HttpContext.Request.Form.Files;
+        }
 
 
     }

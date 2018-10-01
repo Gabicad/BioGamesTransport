@@ -408,6 +408,9 @@ namespace BioGamesTransport.Data.SQL
 
                 entity.Property(e => e.ShipStatusId).HasColumnName("ship_status_id");
 
+                entity.Property(e => e.Deleted).HasColumnName("deleted");
+                entity.Property(e => e.InStock).HasColumnName("in_stock");
+
                 entity.Property(e => e.ShipUndertakenDate)
                     .HasColumnName("ship_undertaken_date")
                     .HasColumnType("datetime");
@@ -461,6 +464,8 @@ namespace BioGamesTransport.Data.SQL
                 entity.Property(e => e.Modified)
                     .HasColumnName("modified")
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.Deleted).HasColumnName("deleted");
 
                 entity.Property(e => e.OrderDatetime)
                     .HasColumnName("order_datetime")

@@ -17,7 +17,7 @@ namespace BioGamesTransport.Data.SQL
         public InvoiceAddresses InvoiceAddresses = new InvoiceAddresses();
         public ShipAddresses ShipAddresses = new ShipAddresses();
         public OrderDetails OrderDetailsForm = new OrderDetails();
-
+        public OrderStatuses OrderStatuses = new OrderStatuses();
 
         public int Id { get; set; }
 
@@ -40,11 +40,11 @@ namespace BioGamesTransport.Data.SQL
         [Display(Name = "Szállítási állapot")]
         public int? ShipStatusId { get; set; }
 
-        [Display(Name = "Fizetendő")]
+        [Display(Name = "Fizetendő (brutto)")]
         [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double TotalPrice { get; set; }
 
-        [Display(Name = "Előleg")]
+        [Display(Name = "Előleg (brutto)")]
         [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double? Deposit { get; set; }
 
@@ -81,6 +81,9 @@ namespace BioGamesTransport.Data.SQL
         [Display(Name = "Előleg befizetés")]
         [DisplayFormat(DataFormatString = "{0:yyyy.MM.dd}", ApplyFormatInEditMode = false)]
         public DateTime? DepositDate { get; set; }
+        [Display(Name = "Törölt")]
+        public bool? Deleted { get; set; }
+
 
         [Display(Name = "Ügyfél")]
         public virtual Customers Customer { get; set; }
@@ -103,7 +106,7 @@ namespace BioGamesTransport.Data.SQL
 
 
         [NotMapped]
-        [Display(Name = "Maradvány")]
+        [Display(Name = "Maradvány (brutto)")]
         [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double Residual { get => setAutoField(); }
 
@@ -111,6 +114,45 @@ namespace BioGamesTransport.Data.SQL
         [Display(Name = "Összes termék")]
         [DisplayFormat(DataFormatString = "{0} db", ApplyFormatInEditMode = false)]
         public int ProdCount { get => countProductOrderDetails(); }
+
+
+        [NotMapped]
+        [Display(Name = "Várható nyereség (netto)")]
+        [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
+        public double? Profit { get => countProfitOrderDetails(); }
+
+
+        [NotMapped]
+        public int? DepositDateCal { get => DateCal(DepositDate); }
+        [NotMapped]
+        public int? OrderDatetimeCal { get => DateCal(OrderDatetime); }
+        [NotMapped]
+        public int? ShipUndertakenDateCal { get => DateCal(ShipUndertakenDate); }
+        [NotMapped]
+        public int? ShipExpectedDateCal { get => DateCal(ShipExpectedDate); }
+        
+
+        private int? DateCal(DateTime? InDateTime)
+        {
+            DateTime? NowDateTime = DateTime.Now;
+           int? tmpDays = InDateTime.HasValue && NowDateTime.HasValue ? (int?)(NowDateTime.Value - InDateTime.Value).TotalDays : null;
+            return tmpDays;
+        }
+
+        private double? countProfitOrderDetails()
+        {
+            double tmpTotal = 0;
+            double? tmpBeszar = 0;
+            foreach (OrderDetails item in OrderDetails)
+            {
+                if (item.Deleted != true)
+                {
+                    tmpTotal += (item.Price / 1.27) * item.Quantity;
+                    tmpBeszar += item.PurchasePrice * item.Quantity;
+                }
+            }
+            return (tmpTotal- tmpBeszar);
+        }
 
         private double setAutoField()
         {
@@ -124,13 +166,15 @@ namespace BioGamesTransport.Data.SQL
             }
         }
 
-
         private int countProductOrderDetails()
         {
            int i = 0;
             foreach(OrderDetails item in OrderDetails)
             {
-                i += item.Quantity;
+                if (item.Deleted != true)
+                {
+                    i += item.Quantity;
+                }
             }
             return i;
         }
@@ -140,7 +184,11 @@ namespace BioGamesTransport.Data.SQL
             double i = 0;
             foreach (OrderDetails item in OrderDetails)
             {
-                i += item.Price*item.Quantity;
+                if (item.Deleted != true)
+                {
+                    i += item.Price * item.Quantity;
+                }
+                
             }
             return i;
         }

@@ -25,16 +25,17 @@ namespace BioGamesTransport.Controllers.API
         public async Task<ActionResult<IEnumerable<Customers>>> GetCustomers()
         {
            
-            return await _context.Customers.Include(s => s.ShipAddresses).Include(i => i.InvoiceAddresses).ToListAsync();
+            return await _context.Customers.Include(s => s.ShipAddresses).Include(i => i.InvoiceAddresses).Where(c => c.Deleted != true).ToListAsync();
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customers>> GetCustomers(int id)
         {
-            var customers = await _context.Customers.Include(s => s.ShipAddresses).Include(i => i.InvoiceAddresses).FirstOrDefaultAsync(m => m.Id == id);
+            var customers = await _context.Customers.Include(s => s.ShipAddresses).Include(i => i.InvoiceAddresses).Where(c => c.Deleted != true).FirstOrDefaultAsync(m => m.Id == id);
 
-      
+            customers.ShipAddresses = customers.ShipAddresses.Where(c => c.Deleted != true).ToList();
+            customers.InvoiceAddresses = customers.InvoiceAddresses.Where(c => c.Deleted != true).ToList();
 
             if (customers == null)
             {

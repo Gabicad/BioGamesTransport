@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BioGamesTransport.Data.SQL
 {
@@ -29,7 +30,7 @@ namespace BioGamesTransport.Data.SQL
         [DisplayFormat(DataFormatString = "{0} db", ApplyFormatInEditMode = false)]
         public int Quantity { get; set; }
 
-        [Display(Name = "Ár")]
+        [Display(Name = "Ár (brutto)")]
         [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double Price { get; set; }
 
@@ -37,7 +38,7 @@ namespace BioGamesTransport.Data.SQL
         [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double? Deposit { get; set; }
 
-        [Display(Name = "Beszerzési ár")]
+        [Display(Name = "Beszerzési ár (netto)")]
         [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
         public double? PurchasePrice { get; set; }
 
@@ -55,6 +56,12 @@ namespace BioGamesTransport.Data.SQL
         public string Comment { get; set; }
         public DateTime? Created { get; set; }
         public DateTime? Modified { get; set; }
+        [Display(Name = "Törölt")]
+        public bool? Deleted { get; set; }
+
+        [UIHint("YesNo")]
+        [Display(Name = "Raktáron")]
+        public bool InStock { get; set; }
         [Display(Name = "Kép")]
         public virtual Images Images { get; set; }
         [Display(Name = "Gyártó")]
@@ -63,5 +70,27 @@ namespace BioGamesTransport.Data.SQL
         public virtual Orders Order { get; set; }
         public virtual ShipStatuses ShipStatus { get; set; }
         public virtual ICollection<WaybillDetails> WaybillDetails { get; set; }
+
+
+        [NotMapped]
+        [Display(Name = "Várható nyereség (netto)")]
+        [DisplayFormat(DataFormatString = "{0:# ### ###} Ft", ApplyFormatInEditMode = false)]
+        public double? Profit { get => countProfitOrderDetails(); }
+
+
+        private double? countProfitOrderDetails()
+        {
+            double tmpTotal = 0;
+            double? tmpBeszar = 0;
+     
+                tmpTotal += (Price / 1.27) * Quantity;
+                tmpBeszar += PurchasePrice * Quantity;
+            
+            return (tmpTotal - tmpBeszar);
+        }
+
+
+
+
     }
 }

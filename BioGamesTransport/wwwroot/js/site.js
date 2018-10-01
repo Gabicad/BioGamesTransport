@@ -40,7 +40,10 @@ $(document).ready(function () {
         $("#li3Step").addClass("active");
     });
 
- 
+    $(".modal_open_status").click(function (event) {
+        $("#OrderStatusId").val(($(this).attr('statusID')));
+       $("#OrderIdJS").val(event.target.id);
+    });
 
 
 
@@ -89,7 +92,7 @@ function PostOrderDetails() {
 
     i++;
 
-    $('#prodDetailsTable tr:last').after('<tr><td><input class="form-control" type="text" id="OrderDetailsForm_ProductName" name="OrderDetails[' + i + '].ProductName" value=""></td><td><input class="form-control" type="text" id="OrderDetailsForm_ProductRef" name="OrderDetails[' + i + '].ProductRef" value=""></td><td><input class="form-control" type="text" id="OrderDetailsForm_Price" name="OrderDetails[' + i + '].Price" value=""></td><td><input class="form-control" type="text" id="OrderDetailsForm_PurchasePrice" name="OrderDetails[' + i + '].PurchasePrice" value=""></td><td><input class="form-control" type="number" id="OrderDetailsForm_Quantity" name="OrderDetails[' + i + '].Quantity" value=""></td>        <td><input class="form-control" type="datetime-local" id="OrderDetailsForm_ShipUndertakenDate" name="OrderDetails[' + i + '].ShipUndertakenDate" value=""></td><td> <input class="form-control" type="datetime-local" id="OrderDetailsForm_ShipExpectedDate" name="OrderDetails[' + i + '].ShipExpectedDate" value=""></td><td><select class="form-control" id="OrderDetailsForm_ManufacturerId' + i + '" name="OrderDetails[' + i + '].ManufacturerId"></select></td><td><input class="form-control" type="file" name="Image"></td></tr>');
+    $('#prodDetailsTable tr:last').after('<tr><td><input class="form-control" type="text" id="OrderDetailsForm_ProductName" name="OrderDetails[' + i + '].ProductName" value=""></td><td><input class="form-control" type="text" id="OrderDetailsForm_ProductRef" name="OrderDetails[' + i + '].ProductRef" value=""></td><td><input class="form-control" type="text" id="OrderDetailsForm_Price" name="OrderDetails[' + i + '].Price" value=""></td><td><input class="form-control" type="text" id="OrderDetailsForm_PurchasePrice" name="OrderDetails[' + i + '].PurchasePrice" value=""></td><td><input class="form-control" type="number" id="OrderDetailsForm_Quantity" name="OrderDetails[' + i + '].Quantity" value=""><td><input class="form-control" type="checkbox" id="OrderDetailsForm_InStock" name="OrderDetails[' + i + '].InStock" value="true"></td></td>        <td><input class="form-control" type="datetime-local" id="OrderDetailsForm_ShipUndertakenDate" name="OrderDetails[' + i + '].ShipUndertakenDate" value=""></td><td> <input class="form-control" type="datetime-local" id="OrderDetailsForm_ShipExpectedDate" name="OrderDetails[' + i + '].ShipExpectedDate" value=""></td><td><select class="form-control" id="OrderDetailsForm_ManufacturerId' + i + '" name="OrderDetails[' + i + '].ManufacturerId"></select></td><td><input class="form-control" type="file" name="Image' + i + '"></td></tr>');
 
 
     var ob = $("#OrderDetailsForm_ManufacturerId" + i);
@@ -144,8 +147,8 @@ function GetCustomerAddresses(id) {
                 $shipSelect += '<option value="' + item.id + '">' + item.firstName + ' ' + item.lastName + ' | ' + item.zipcode + ' | ' + item.city + ' | ' + item.address + ' | ' + item.company + ' | ' + item.phone + ' </option>';
             });
 
-            $invoHTML = '<label class="control-label" for= "invoiceAddressesId" > Számlázási Cím</label ><select class="form-control "  id="InvoiceAddressId" name="InvoiceAddressId">' + $invoSelect+'</select>';
-            $shipHTML = '<label class="control-label" for= "shipAddressesId" > Szállítási Cím</label ><select class="form-control "  id="ShipAddressId" name="ShipAddressId" >' + $shipSelect + '</select>';
+            $invoHTML = '<label class="control-label" for= "invoiceAddressesId" > Számlázási Cím</label ><span class="requied"> *</span><select class="form-control "  id="InvoiceAddressId" name="InvoiceAddressId">' + $invoSelect+'</select>';
+            $shipHTML = '<label class="control-label" for= "shipAddressesId" > Szállítási Cím</label ><span class="requied"> *</span><select class="form-control "  id="ShipAddressId" name="ShipAddressId" >' + $shipSelect + '</select>';
             $("#SelectInvoAdd").html($invoHTML);
             $("#SelectShipAdd").html($shipHTML);
             

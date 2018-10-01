@@ -50,3 +50,28 @@ dt, dd {
 .text-red{
     color:red;
 }
+
+input[type=checkbox], input[type=radio] .form-control {
+    margin: 4px 0 0;
+    width: 30% !important;
+    height:20px!important;
+
+    line-height: normal;
+}
+
+
+.requied{
+    font-weight:bold;
+
+}
+
+table.dataTable thead .sorting_desc {
+    background-image: none !important;
+}
+table.dataTable thead .sorting_asc {
+    background-image: none !important;
+}
+
+table.dataTable thead .sorting {
+    background-image: none !important;
+}

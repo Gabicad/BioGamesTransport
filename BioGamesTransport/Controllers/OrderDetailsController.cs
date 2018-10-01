@@ -177,8 +177,9 @@ namespace BioGamesTransport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderId,ShipStatusId,ManufacturerId,ImagesId,ProductOutId,ProductName,ProductRef,Quantity,Price,Deposit,PurchasePrice,ShipUndertakenDate,ShipExpectedDate,ShipDeliveredDate,Comment,Created,Modified")] OrderDetails orderDetails)
+        public async Task<IActionResult> Edit(int id, OrderDetails orderDetails, IFormFile Image)
         {
+         
             if (id != orderDetails.Id)
             {
                 return NotFound();
@@ -186,8 +187,38 @@ namespace BioGamesTransport.Controllers
 
             if (ModelState.IsValid)
             {
+                if(Image != null)
+                {
+                    if (Image.Length > 0)
+                {
+                        Images dbImages = new Images();
+                        if (orderDetails.ImagesId != null)
+                        {
+                             dbImages = await _context.Images.FirstOrDefaultAsync(m => m.Id == orderDetails.ImagesId);
+                        }
+                        
+                    
+                    dbImages.Name = orderDetails.ProductName;
+
+                    //Convert Image to byte and save to database
+                    {
+                        byte[] p1 = null;
+                        using (var fs1 = Image.OpenReadStream())
+                        using (var ms1 = new MemoryStream())
+                        {
+                            fs1.CopyTo(ms1);
+                            p1 = ms1.ToArray();
+                        }
+                        dbImages.Data = p1;
+                    }
+                    orderDetails.Images = dbImages;
+                }
+                }
+
                 try
                 {
+                    DateTime cretaed_time = DateTime.Now;
+                    orderDetails.Modified = cretaed_time;
                     _context.Update(orderDetails);
                     await _context.SaveChangesAsync();
                 }
@@ -244,11 +275,11 @@ namespace BioGamesTransport.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var orderDetails = await _context.OrderDetails.FindAsync(id);
-            int tmpID = orderDetails.OrderId;
-            _context.OrderDetails.Remove(orderDetails);
+            orderDetails.Deleted = true;
+            _context.Update(orderDetails);
             await _context.SaveChangesAsync();
-            await RecalculateTotalPrice(tmpID);
-            return RedirectToAction("Details", "Orders", new { id = tmpID });
+            await RecalculateTotalPrice(orderDetails.OrderId);
+            return RedirectToAction("Details", "Orders", new { id = orderDetails.OrderId });
         }
 
         private bool OrderDetailsExists(int id)

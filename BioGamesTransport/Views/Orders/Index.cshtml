@@ -56,7 +56,7 @@
                                 @Html.DisplayFor(modelItem => item.OrderOutRef)
                             </td>
                             <td>
-                                <button type="button" class="btn btn-@Html.DisplayFor(modelItem => item.OrderStatus.Color) btn-sm"> @Html.DisplayFor(modelItem => item.OrderStatus.Name) </button>
+                                <button type="button" statusID="@Html.DisplayFor(modelItem => item.OrderStatus.Id)" id="@Html.DisplayFor(modelItem => item.Id)" data-toggle="modal" data-target="#myModal_statusz" class="modal_open_status btn btn-@Html.DisplayFor(modelItem => item.OrderStatus.Color) btn-xs"> @Html.DisplayFor(modelItem => item.OrderStatus.Name) </button>
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.OrderDatetime)
@@ -85,14 +85,46 @@
                             </td>
 
                             <td>
-                                <a class="btn btn-outline btn-success btn-xs" asp-action="Edit" asp-route-id="@item.Id">Pénzügy</a> |
-                                <a class="btn btn-outline btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">Szállítás</a> |
-                                <a class="btn btn-outline btn-primary btn-xs" asp-action="Details" asp-route-id="@item.Id">Részletek</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                <table>
+                                    <!-- <tr><td><a class="btn btn-outline btn-success btn-xs" asp-action="Edit" asp-route-id="@item.Id">Pénzügy</a></td></tr>
+                                         <tr><td><a class="btn btn-outline btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">Szállítás</a></td></tr>-->
+                                    <tr><td><a class="btn btn-outline btn-primary btn-xs" asp-action="Details" asp-route-id="@item.Id">Részletek</a></td></tr>
+                                </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+    <!-- Modal -->
+                                    <div class="modal fade" id="myModal_statusz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">Rendelés státusz</h4>
+                                                </div><form asp-controller="Orders" asp-action="ChangeStatus">
+                                                    <div class="modal-body">
+
+                                                        <input type="hidden" name="Index" value="1" />
+                                                        <input type="hidden" data-val="true" data-val-required="The Id field is required." id="OrderIdJS" name="Id" value="" />
+                                                        <div class="form-group">
+                                                            <label class="control-label" for="OrderStatuses_Name">Name</label>
+                                                            <select id="OrderStatusId" name="OrderStatusId" class="form-control" asp-items="ViewBag.OrderStatusId"></select>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Mégse</button>
+                                                        <input type="submit" value="Mentés" class="btn btn-success" />
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+
+                                    </div>
+                                    <!-- Modal -->
+

@@ -25,35 +25,36 @@
 
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group col-md-3 float-left">
-                                <label asp-for="Customers.ShopId" class="control-label"></label>
+                                <label asp-for="Customers.ShopId" class="control-label"></label><span class="requied"> *</span>
                                 <select asp-for="Customers.ShopId" class="form-control" asp-items="ViewBag.ShopId"></select>
                             </div>
 
                             <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="Customers.FirstName" class="control-label"></label>
+                                <label asp-for="Customers.FirstName" class="control-label"></label><span class="requied"> *</span>
                                 <input asp-for="Customers.FirstName" class="form-control" />
                                 <span asp-validation-for="Customers.FirstName" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="Customers.LastName" class="control-label"></label>
+                                <label asp-for="Customers.LastName" class="control-label"></label><span class="requied"> *</span>
                                 <input asp-for="Customers.LastName" class="form-control" />
                                 <span asp-validation-for="Customers.LastName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-3 input-height float-left">
+                                <label asp-for="Customers.Phone" class="control-label"></label><span class="requied"> *</span>
+                                <input asp-for="Customers.Phone" class="form-control" />
+                                <span asp-validation-for="Customers.Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3 input-height float-left">
+                                <label asp-for="Customers.Email" class="control-label"></label><span class="requied"> *</span>
+                                <input asp-for="Customers.Email" class="form-control" />
+                                <span asp-validation-for="Customers.Email" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-3 input-height float-left">
                                 <label asp-for="Customers.Type" class="control-label"></label>
                                 <input asp-for="Customers.Type" class="form-control" />
                                 <span asp-validation-for="Customers.Type" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="Customers.Phone" class="control-label"></label>
-                                <input asp-for="Customers.Phone" class="form-control" />
-                                <span asp-validation-for="Customers.Phone" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="Customers.Email" class="control-label"></label>
-                                <input asp-for="Customers.Email" class="form-control" />
-                                <span asp-validation-for="Customers.Email" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-3 input-height float-left">
                                 <label asp-for="Customers.BankAccount" class="control-label"></label>
@@ -76,32 +77,33 @@
                             <h4>Számlázási cím</h4>
                             <hr style="margin:0!important;" />
                             <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="InvoiceAddresses.FirstName" class="control-label"></label>
+                                <label asp-for="InvoiceAddresses.FirstName" class="control-label"></label><span class="requied"> *</span>
                                 <input asp-for="InvoiceAddresses.FirstName" class="form-control" />
                                 <span asp-validation-for="InvoiceAddresses.FirstName" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="InvoiceAddresses.LastName" class="control-label"></label>
+                                <label asp-for="InvoiceAddresses.LastName" class="control-label"></label><span class="requied"> *</span>
                                 <input asp-for="InvoiceAddresses.LastName" class="form-control" />
                                 <span asp-validation-for="InvoiceAddresses.LastName" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="InvoiceAddresses.Country" class="control-label"></label>
+                                <label asp-for="InvoiceAddresses.Country" class="control-label"></label><span class="requied"> *</span>
                                 <input asp-for="InvoiceAddresses.Country" class="form-control" />
                                 <span asp-validation-for="InvoiceAddresses.Country" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="InvoiceAddresses.City" class="control-label"></label>
-                                <input asp-for="InvoiceAddresses.City" class="form-control" />
-                                <span asp-validation-for="InvoiceAddresses.City" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="InvoiceAddresses.Zipcode" class="control-label"></label>
+                                <label asp-for="InvoiceAddresses.Zipcode" class="control-label"></label><span class="requied"> *</span>
                                 <input asp-for="InvoiceAddresses.Zipcode" class="form-control" />
                                 <span asp-validation-for="InvoiceAddresses.Zipcode" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-3 input-height float-left">
-                                <label asp-for="InvoiceAddresses.Address" class="control-label"></label>
+                                <label asp-for="InvoiceAddresses.City" class="control-label"></label><span class="requied"> *</span>
+                                <input asp-for="InvoiceAddresses.City" class="form-control" />
+                                <span asp-validation-for="InvoiceAddresses.City" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-3 input-height float-left">
+                                <label asp-for="InvoiceAddresses.Address" class="control-label"></label><span class="requied"> *</span>
                                 <input asp-for="InvoiceAddresses.Address" class="form-control" />
                                 <span asp-validation-for="InvoiceAddresses.Address" class="text-danger"></span>
                             </div>
@@ -127,7 +129,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group text-center">
-                                <a class="btn btn-success" id="ship_invoice_chk" href="javascipt:void(0);" ><i class="fa fa-long-arrow-down"></i> Cím másolása <i class="fa fa-long-arrow-down"></i></a>
+                                <a class="btn btn-success" id="ship_invoice_chk" href="javascipt:void(0);"><i class="fa fa-long-arrow-down"></i> Cím másolása <i class="fa fa-long-arrow-down"></i></a>
                             </div>
                             <div class="clearfix"></div>
                             <div id="ship_box_id">
@@ -135,32 +137,33 @@
                                 <h4>Szállítási cím</h4>
                                 <hr style="margin:0!important;" />
                                 <div class="form-group col-md-3 input-height float-left">
-                                    <label asp-for="ShipAddresses.FirstName" class="control-label"></label>
+                                    <label asp-for="ShipAddresses.FirstName" class="control-label"></label><span class="requied"> *</span>
                                     <input asp-for="ShipAddresses.FirstName" class="form-control" />
                                     <span asp-validation-for="ShipAddresses.FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-3 input-height float-left">
-                                    <label asp-for="ShipAddresses.LastName" class="control-label"></label>
+                                    <label asp-for="ShipAddresses.LastName" class="control-label"></label><span class="requied"> *</span>
                                     <input asp-for="ShipAddresses.LastName" class="form-control" />
                                     <span asp-validation-for="ShipAddresses.LastName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-3 input-height float-left">
-                                    <label asp-for="ShipAddresses.Country" class="control-label"></label>
+                                    <label asp-for="ShipAddresses.Country" class="control-label"></label><span class="requied"> *</span>
                                     <input asp-for="ShipAddresses.Country" class="form-control" />
                                     <span asp-validation-for="ShipAddresses.Country" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-3 input-height float-left">
-                                    <label asp-for="ShipAddresses.City" class="control-label"></label>
-                                    <input asp-for="ShipAddresses.City" class="form-control" />
-                                    <span asp-validation-for="ShipAddresses.City" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-3 input-height float-left">
-                                    <label asp-for="ShipAddresses.Zipcode" class="control-label"></label>
+                                    <label asp-for="ShipAddresses.Zipcode" class="control-label"></label><span class="requied"> *</span>
                                     <input asp-for="ShipAddresses.Zipcode" class="form-control" />
                                     <span asp-validation-for="ShipAddresses.Zipcode" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-3 input-height float-left">
-                                    <label asp-for="ShipAddresses.Address" class="control-label"></label>
+                                    <label asp-for="ShipAddresses.City" class="control-label"></label><span class="requied"> *</span>
+                                    <input asp-for="ShipAddresses.City" class="form-control" />
+                                    <span asp-validation-for="ShipAddresses.City" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-3 input-height float-left">
+                                    <label asp-for="ShipAddresses.Address" class="control-label"></label><span class="requied"> *</span>
                                     <input asp-for="ShipAddresses.Address" class="form-control" />
                                     <span asp-validation-for="ShipAddresses.Address" class="text-danger"></span>
                                 </div>
